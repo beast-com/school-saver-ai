@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020805">
+<title>SCHOOL SAVER AI | Smart Schools. Reduced Costs.</title>
+<meta name="description" content="SCHOOL SAVER AI - Complete school management, education and cost-saving platform from ECDE to University.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="/icons/app-192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316a34a'/%3E%3Ctext x='32' y='47' font-size='40' font-weight='900' text-anchor='middle' fill='%2302150a' font-family='Arial'%3ES%3C/text%3E%3C/svg%3E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+:root{--g:#22e46f;--g2:#0c7a3d;--bg:#020a05;--c1:#07170d;--c2:#030a05;--tx:#eaf7ee;--mu:#8fb09a;--rd:#ff4d4d;--am:#f5c518;--in:#06180d}
+body.light{--bg:#f3faf5;--c1:#fff;--c2:#eefaf2;--tx:#0b2415;--mu:#4a6b57;--in:#fff;--g2:#7cc99b}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(circle at 20% 0,#08301a,var(--bg) 55%);color:var(--tx);font:14px system-ui,sans-serif;min-height:100vh}
+body.light{background:var(--bg)}
+.hidden{display:none!important}
+.load,.auth{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;text-align:center}
+.lgo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#16a34a,#22e46f);color:#02150a;font:900 36px system-ui;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px #22e46f88}
+h1 b,h2 b,.brand b{color:var(--g)}
+.auth .box{width:100%;max-width:430px;text-align:left}
+.tabs{display:flex;gap:6px;margin-bottom:10px}.tabs button{flex:1}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--g2);padding:10px;background:#03100830;overflow-y:auto;max-height:100vh;position:sticky;top:0}
+aside .sc{display:flex;gap:8px;align-items:center;padding:8px;margin-bottom:6px;border:1px solid var(--g2);border-radius:10px}
+aside .hd{color:var(--mu);font-size:10px;letter-spacing:.08em;margin:10px 6px 4px}
+aside button{display:flex;gap:9px;align-items:center;width:100%;text-align:left;margin-bottom:2px;background:none;border:0;color:var(--tx);padding:7px 10px;border-radius:9px;font-size:13px;cursor:pointer}
+aside button:hover{background:#0c3a1f55}aside button.on{background:linear-gradient(90deg,#16a34a,#22e46f);color:#02150a;font-weight:700}
+.brand{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--g2);flex-wrap:wrap}
+.brand h1{font-size:clamp(20px,3.6vw,38px);font-weight:900;line-height:1}.brand em{display:block;font-size:13px;margin-top:3px}
+.tr{margin-left:auto;text-align:right;font-style:italic;color:var(--g)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;padding:8px 18px;position:relative}
+select,input,button.b,textarea{font:inherit;color:var(--tx);background:var(--in);border:1px solid var(--g2);border-radius:9px;padding:8px;max-width:100%}
+button.b{cursor:pointer}
+button.p{background:linear-gradient(90deg,#16a34a,#22e46f);color:#02150a;border:0;font-weight:700;border-radius:9px;padding:8px 12px;cursor:pointer}
+button.d{background:var(--rd);color:#fff;border:0;border-radius:9px;padding:8px 12px;cursor:pointer}
+main{padding:14px 18px 8px}
+h2.t{color:var(--g);margin-bottom:4px}p.sub{color:var(--mu);margin-bottom:12px}h3{margin:14px 0 6px}
+.eb{color:var(--g);font-size:11px;letter-spacing:.1em}
+.card{background:linear-gradient(160deg,var(--c1),var(--c2));border:1px solid #14a050;border-radius:14px;padding:12px;margin-bottom:12px;box-shadow:inset 0 0 14px #0f6b3a40,0 0 10px #0a5a2a50}
+.card>h4{font-size:16px;margin-bottom:8px}
+.grid{display:grid;gap:12px}.g6{grid-template-columns:repeat(auto-fit,minmax(135px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.stat{text-align:center}.stat i{font-style:normal;font-size:24px}.stat span{display:block;color:var(--mu);font-size:12px;margin-top:2px}.stat b{font-size:19px}
+.sav b{color:var(--am)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px;border-bottom:1px solid #123c2455}th{color:var(--mu);font-weight:500}
+form{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}form .full{grid-column:1/-1}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;background:#0c3a1f;color:var(--g)}.tag.r{background:#4a0e0e;color:var(--rd)}.tag.a{background:#453107;color:var(--am)}
+body.light .tag{background:#d9f5e3;color:#0a6b35}
+.note{color:var(--mu);font-size:12px;margin:6px 0}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.qa button{background:var(--in);border:1px solid var(--g2);border-radius:10px;color:var(--tx);padding:10px 4px;cursor:pointer;font-size:12px}.qa button i{display:block;font-size:22px;font-style:normal}
+.av{font-size:44px;text-align:center;background:#0a2a1555;border-radius:12px;padding:6px}
+.role{display:flex;gap:10px}.role ul{list-style:none;padding:0;font-size:13px}.role li:before{content:"✔ ";color:var(--g)}
+.ok{background:#0c3a1f55;border:1px solid var(--g);border-radius:12px;padding:10px;text-align:center}.ok h5{font-size:17px;color:var(--g)}
+.alert{border:2px solid var(--g);background:#0c3a1f66;border-radius:12px;padding:14px;margin:10px 0;animation:pl 1s 3}
+.alert.bad{border-color:var(--rd);background:#4a0e0e66}
+@keyframes pl{50%{box-shadow:0 0 22px var(--g)}}
+.chart{display:flex;align-items:flex-end;gap:10px;height:120px;background:#ffffff14;border-radius:8px;padding:8px}.chart div{flex:1;display:flex;gap:2px;align-items:flex-end;height:100%}.chart i{flex:1;background:var(--g);border-radius:3px 3px 0 0}.chart i+i{background:var(--am)}
+.ai9{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px}.ai9 div{text-align:center;border:1px solid var(--g2);border-radius:10px;padding:8px 4px;background:var(--in);font-size:12px;cursor:pointer}.ai9 i{display:block;font-size:24px;font-style:normal}
+.seg{white-space:nowrap}.seg button{background:var(--in);border:1px solid var(--g2);color:var(--tx);border-radius:7px;padding:4px 9px;cursor:pointer}.seg button.on{background:var(--g);color:#02150a}
+.foot{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--g2);color:var(--mu)}
+.pop{position:absolute;right:18px;top:52px;width:min(340px,92vw);z-index:20;background:var(--c1);border:1px solid var(--g);border-radius:12px;padding:12px;max-height:60vh;overflow:auto}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;gap:6px}
+#toast div{background:var(--g);color:#02150a;padding:9px 14px;border-radius:10px;font-weight:600}
+.ans{background:#0c3a1f55;border-radius:10px;padding:10px;margin-top:8px;white-space:pre-line}
+a.btn{display:inline-block;text-decoration:none;font:inherit;color:var(--tx);background:var(--in);border:1px solid var(--g2);border-radius:9px;padding:6px 10px;margin:2px;font-size:12px}details summary{cursor:pointer;color:var(--g);margin:4px 0}details label{display:block;font-size:12px;margin:3px 0}
+#mb{display:none}
+@media(max-width:820px){.app{grid-template-columns:1fr}aside{position:fixed;left:-260px;top:0;width:250px;z-index:30;background:var(--bg);transition:.2s;height:100vh}aside.open{left:0}#mb{display:inline-block}.tr{display:none}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="load" class="load"><div class="lgo">S</div><h2>SCHOOL <b>SAVER AI</b></h2><p>Smart Schools. Reduced Costs. Brighter Future.</p></div>
+
+<!-- AUTH -->
+<section id="auth" class="auth hidden">
+ <div class="lgo">S</div>
+ <h1>SCHOOL <b>SAVER AI</b></h1><p>Smart Schools. Reduced Costs. Brighter Future.</p><small>From ECDE to University</small>
+ <div class="card box">
+  <div class="tabs"><button class="p" id="tl" onclick="authTab('l')">Login</button><button class="b" id="tr2" onclick="authTab('r')">Register School</button></div>
+  <form id="loginForm" onsubmit="doLogin(event)">
+   <h3 class="full" style="margin:0">Welcome Back</h3>
+   <input class="full" name="id" placeholder="Email / phone number" required>
+   <input class="full" name="pw" type="password" placeholder="Password" required>
+   <select class="full" name="role" id="loginRole"></select>
+   <button class="p full">Login</button>
+   <button type="button" class="b full" onclick="toast('Password recovery needs the secure backend (Build 03)')">Forgot password?</button>
+   <p class="note full">Demo: any details work. Real login, roles and school isolation arrive in Build 03.</p>
+  </form>
+  <form id="regForm" class="hidden" onsubmit="doRegister(event)">
+   <h3 class="full" style="margin:0">Register Your School</h3>
+   <input class="full" name="n" placeholder="Institution name" required>
+   <select class="full" name="t" required><option value="">Select institution type</option>
+    <option value="ecde">ECDE / Nursery</option><option value="primary">Primary School</option><option value="junior-secondary">Junior Secondary</option><option value="senior-secondary">Senior Secondary</option><option value="tvet">TVET Institution</option><option value="college">College</option><option value="university">University</option></select>
+   <input name="rn" placeholder="School registration number"><input name="co" placeholder="County">
+   <input name="hd" placeholder="Principal / institution head" required><input name="ph" type="tel" placeholder="+254..." required>
+   <input class="full" name="em" type="email" placeholder="School email"><input class="full" name="pw" type="password" placeholder="Create password" required>
+   <button class="p full">Register Institution</button>
+  </form>
+  <form id="actForm" class="hidden" onsubmit="doActivate(event)">
+   <h3 class="full" id="actT" style="margin:0">Activate your account</h3><p class="note full" id="actP"></p>
+   <input class="full" name="c" placeholder="Phone number or email the invitation was sent to" required>
+   <input class="full" name="idn" placeholder="National ID / staff number (identity check)" required>
+   <input name="pw" type="password" placeholder="Create password (6+ characters)" required><input name="pw2" type="password" placeholder="Confirm password" required>
+   <button class="p full">Activate & open my dashboard</button><button type="button" class="b full" onclick="authTab('l')">Back to login</button>
+  </form>
+  <p id="invNote" class="note hidden">Invitation link detected. In this prototype, links only work inside the principal's session. Real cross-device activation needs the secure backend (Builds 03–04).</p>
+  <p class="note" style="text-align:center">Secure school access • Role-based permissions</p>
+ </div>
+</section>
+
+<!-- APP -->
+<div id="app" class="app hidden">
+ <aside id="side"></aside>
+ <div>
+  <div class="brand"><button class="b" id="mb" onclick="side.classList.toggle('open')">☰</button><div class="lgo" style="width:44px;height:44px;font-size:24px">S</div>
+   <div><h1>SCHOOL <b>SAVER AI</b></h1><em id="tag"></em></div><div class="tr" id="trr"></div></div>
+  <div class="bar">
+   <select id="lvl" onchange="setLevel(this.value)" aria-label="Institution type"></select>
+   <select id="lang" onchange="S.lang=this.value;go()"><option value="en">🌐 English</option><option value="sw">🌐 Kiswahili</option></select>
+   <button class="b" onclick="pop('np')">🔔 <span class="tag r" id="nc">0</span></button>
+   <select id="role" onchange="S.role=this.value;S.view='dash';go()" aria-label="Role"></select>
+   <button class="b" onclick="pop('pm')">👤 <span id="un"></span> ⌄</button>
+   <button class="p hidden" id="inst" onclick="installApp()">⬇ Install app</button>
+   <button class="b" id="net" onclick="toggleNet()"></button>
+   <div id="np" class="pop hidden"></div>
+   <div id="pm" class="pop hidden"><b id="pmn"></b><p class="note" id="pmr"></p>
+    <button class="b" onclick="go2('settings')">Settings</button> <button class="b" onclick="go2('reports')">My Reports</button> <button class="d" onclick="logout()">Logout</button></div>
+  </div>
+  <main id="main"></main>
+  <div class="foot"><span>🛡️ Secure & Reliable</span><span>☁️ Online & Offline Ready</span><span>🔒 Data Protection</span><span>SCHOOL SAVER AI © <span id="yr"></span> — Empowering Every School.</span><span class="note">DEMO — records are saved in this browser only. Not yet a secure production system.</span></div>
+ </div>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ============ EDUCATION LEVELS ============ */
+const LC={ecde:"e",primary:"p","junior-secondary":"j","senior-secondary":"s",tvet:"t",college:"c",university:"u"};
+const SP=[["Self","HELB","County bursary","Employer","Other"]];
+const LV={
+ecde:{n:"Little Stars ECDE",st:"Child",sts:"Children",cl:"Class",classes:["Baby","PP1","PP2"],term:"Term",tg:"Safe, Simple, Smart ECDE",fee:25000,minor:1,pl:"Parents & Guardians",hd:"Head Teacher",tr:"ECDE Teacher",att:"Daily register",
+ reg:[["Birth certificate no."],["Date of birth","date"],["Immunisation status",["Complete","Partial","Unknown"]],["Allergies / dietary needs"],["Authorised collectors (names)"]],sr:[["caregiver","Caregiver"],["cook","Cook / Food Manager"]]},
+primary:{n:"Greenwood Primary School",st:"Pupil",sts:"Pupils",cl:"Class",classes:["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6"],term:"Term",tg:"Primary Made Simple",fee:30000,minor:1,pl:"Parents & Guardians",hd:"Head Teacher",tr:"Class Teacher",att:"Daily register",
+ reg:[["UPI / NEMIS no."],["Birth certificate no."],["Previous school"],["Transport route"],["Medical notes (authorised only)"]],sr:[["games","Games Teacher"],["driver","Driver"],["cook","Cook / Food Manager"]]},
+"junior-secondary":{n:"Greenwood Junior School",st:"Learner",sts:"Learners",cl:"Class",classes:["Grade 7","Grade 8","Grade 9"],term:"Term",tg:"Junior Secondary Made Simple",fee:45000,minor:1,pl:"Parents & Guardians",hd:"Principal",tr:"Class Teacher",att:"Per lesson / period",
+ reg:[["UPI / NEMIS no."],["KPSEA result"],["Day / boarding",["Day","Boarding"]],["House / dormitory"],["Optional subjects"],["Transport route"]],sr:[["games","Games Teacher"],["boarding","Boarding Supervisor"],["laboratory","Laboratory Technician"],["counsellor","Counsellor"]]},
+"senior-secondary":{n:"Greenwood High School",st:"Student",sts:"Students",cl:"Class",classes:["Grade 10","Form 3","Form 4"],term:"Term",tg:"From ECDE to University",fee:55000,minor:1,pl:"Parents & Guardians",hd:"Principal",tr:"Class Teacher",att:"Per lesson / period",
+ reg:[["Previous result (KJSEA / KCPE)"],["Pathway",["STEM","Social Sciences","Arts & Sports","Not applicable (Form 3/4)"]],["Subject combination"],["Day / boarding",["Day","Boarding"]],["Bursary / capitation status"]],sr:[["games","Games Teacher"],["boarding","Boarding Supervisor"],["laboratory","Laboratory Technician"],["counsellor","Counsellor"],["department-head","Department Head"]]},
+tvet:{n:"Greenwood TVET Institute",st:"Trainee",sts:"Trainees",cl:"Course",classes:["Electrical L5","ICT L6","Plumbing L4","Welding L4"],term:"Term",tg:"Skills. Workshops. Careers.",fee:60000,minor:0,pl:"Sponsors & Next of Kin",hd:"Principal",tr:"Trainer",att:"Per session / unit",
+ reg:[["National ID / birth cert no."],["KCSE mean grade"],["Course level",["L3","L4","L5","L6"]],["Study mode",["Full-time","Part-time","Evening"]],["Sponsor",SP[0]],["Intake",["Jan","May","Sep"]]],sr:[["workshop","Workshop Technician"],["department-head","Head of Department"],["attachment","Attachment Officer"]]},
+college:{n:"Greenwood College",st:"Student",sts:"Students",cl:"Programme",classes:["DIP Y1","DIP Y2","CERT Y1"],term:"Semester",tg:"Departments. Labs. Results.",fee:80000,minor:0,pl:"Sponsors & Next of Kin",hd:"Principal",tr:"Lecturer",att:"Per unit / lecture",
+ reg:[["KUCCPS / admission no."],["Programme"],["Year of study",["1","2","3"]],["Exam body registration no."],["Accommodation",["Own","Hostel"]],["Sponsor",SP[0]]],sr:[["department-head","Head of Department"],["registrar","Registrar"],["laboratory","Laboratory Technician"]]},
+university:{n:"Greenwood University",st:"Student",sts:"Students",cl:"Programme",classes:["BSc Comp Sci Y1","BEd Y2","BCom Y3"],term:"Semester",tg:"Faculties. Campuses. Research.",fee:120000,minor:0,pl:"Sponsors & Next of Kin",hd:"Vice-Chancellor / Registrar",tr:"Lecturer",att:"Per unit / lecture",
+ reg:[["Admission letter no."],["Faculty"],["Department"],["HELB status",["Applied","Approved","Not applicable"]],["Hostel request",["No","Yes"]],["Student ID card",["QR","NFC","Both"]]],sr:[["dean","Dean"],["department-head","Head of Department"],["registrar","Registrar"],["researcher","Research Officer"]]}};
+const ROLES={principal:"Principal / Head",deputy:"Deputy Principal",teacher:"Class Teacher",games:"Games Teacher",bursar:"Bursar",watchman:"Watchman / Security",librarian:"Librarian",cook:"Cook / Food Manager",driver:"Driver",maintenance:"Maintenance Worker",health:"Health Worker",boarding:"Boarding Supervisor",lab:"Laboratory Technician",parent:"Parent / Guardian" };
+const RC={principal:"P",deputy:"D",teacher:"T",games:"G",bursar:"B",watchman:"W",librarian:"L",cook:"K",driver:"V",maintenance:"M",health:"H",boarding:"O",lab:"Y",parent:"R" };
+const ALL="PTBWLHDGKVMOYR";
+const RK={principal:"principal",deputy:"deputy",teacher:"teacher",games:"games",bursar:"bursar",watchman:"watchman",librarian:"librarian",cook:"cook",driver:"driver",maintenance:"maintenance",health:"health",boarding:"boarding",laboratory:"lab",counsellor:"health",workshop:"lab",caregiver:"teacher","department-head":"teacher",dean:"deputy",registrar:"deputy",researcher:"teacher",attachment:"teacher"};
+const BASE_ROLES=[["principal","Principal"],["deputy","Deputy Principal"],["teacher","{tr}"],["games","Games Teacher"],["bursar","Bursar"],["watchman","Watchman"],["librarian","Librarian"],["cook","Cook / Food Manager"],["driver","Driver"],["maintenance","Maintenance Worker"],["health","Health Worker"],["boarding","Boarding Supervisor"],["laboratory","Laboratory Technician"]];
+const LVN={ecde:"ECDE","primary":"Primary","junior-secondary":"Junior Secondary","senior-secondary":"Senior Secondary",tvet:"TVET",college:"College",university:"University"};
+const PRICE={ecde:6000,primary:12000,"junior-secondary":18000,"senior-secondary":18000,tvet:24000,college:30000,university:60000};
+const RESP={principal:["Register and invite workers","Assign and change roles","Approve registrations and requests","View school-wide reports","Monitor attendance and finances","Receive department alerts","Review AI recommendations","Suspend or deactivate staff accounts"],
+deputy:["Support school administration","Monitor assigned departments","Review attendance and academic reports"],
+teacher:["Register assigned students and guardians","Record classroom attendance","View assigned students' fee balances (read-only)","Communicate with parents","Submit class reports"],
+games:["Register sports teams","Record student participation","Track competitions and results","Manage training schedules","Record sports equipment","Track injuries and refer to health staff","Prepare sports reports"],
+bursar:["Record fee charges and payments","Calculate outstanding balances","Scholarships, bursaries and waivers","Financial statements (calculation only — no money transfers)"],
+watchman:["Record entry and exit: name, age, admission no., time in / out","Verify parents and visitors","Receive parent-arrival alerts","Check authorised child collection"],
+librarian:["Register books","Record borrowing and returns","Track overdue books","Monitor inventory and produce library reports"],
+cook:["Record food received","Record daily consumption","Monitor remaining stock","Record wastage","View approved meal schedules","Submit food purchase requests"],
+driver:["Vehicle assigned","Daily trip records","Student pickup and drop-off","Fuel consumption and mileage","Inspection and maintenance reports"],
+maintenance:["Log repair requests","Track repair status","Maintenance reports"],
+health:["Record clinic visits","Medicine stock","Receive sports-injury referrals"],
+boarding:["Dormitory allocation","Roll-call","Boarding movements"],
+lab:["Laboratory stock","Equipment","Safety records"],
+parent:["View linked children","Fee balance","Attendance notifications","Announcements"],
+super:["Schools and subscriptions","Technical support","Platform monitoring"]};
+const blankFm=()=>({n:"",c:"",r:"",d:"",cl:"",ex:[]});
+const esc=x=>String(x).replace(/"/g,"&quot;");
+const ph=c=>{let d=String(c).replace(/\D/g,"");if(d.startsWith("0"))d="254"+d.slice(1);return d};
+const nc=c=>String(c).includes("@")?String(c).trim().toLowerCase():ph(c);
+const ROAD=[["01","Project foundation and branding"],["02","Complete frontend and all screens (this prototype)"],["03","Real authentication and database"],["04","Principal registration and staff invitations"],["05","Students, parents, academic and operations"],["06","Watchman, gate verification and biometric hardware"],["07","Nine original AI systems"],["08","Eleven additional modules and supporting features"],["09","Company Super Admin"],["10","Offline functionality and security"],["11","Annual subscriptions and business management"],["12","Pilot testing and national expansion"]];
+/* id, icon, EN, SW, roles, levels */
+const NAV=[["#","SCHOOL MANAGEMENT"],
+["dash","🏠","Dashboard","Dashibodi",ALL],["adm","📝","Admissions & Enrolment","Usajili","PT"],["students","🎓","{sts}","Wanafunzi","PT"],["parents","👨‍👩‍👧","{pl}","Wazazi na Walezi","PT"],
+["staff","👥","Staff & Invitations","Wafanyakazi","P"],["academic","📚","Academic Management AI","Masomo AI","PT"],["attendance","📋","Attendance Register","Daftari la Mahudhurio","PT"],
+["exams","📝","Examinations & Timetable","Mitihani na Ratiba","PT","pjstcu"],["digital","💻","Digital Learning AI","Masomo ya Kidijitali","PT","pjstcu"],["career","🎯","Career Guidance","Mwongozo wa Kazi","PT","jstcu"],
+["workshops","🛠","Workshops & Equipment","Karakana","PT","t"],["attach","🏭","Industrial Attachment & Placement","Mafunzo kazini","PT","tc"],["faculties","🏛","Faculties, Units & Research","Vitivo na Utafiti","PT","cu"],
+["#","FINANCE & COST SAVING"],
+["fees","💳","Fees & Arrears","Ada na Madeni","PTB"],["finance","📊","Financial Intelligence AI","Fedha AI","PB"],["food","🍲","Food Saver AI","Chakula AI","PB"],["nutrition","🥗","Nutrition & Meal Planning","Lishe","PB","epjs"],
+["procure","🛒","Procurement AI","Manunuzi AI","PB"],["grants","🎁","Grants & Donations","Ruzuku na Michango","PB"],["utilities","⚡","Utilities AI","Umeme na Maji","PB"],["solar","☀️","Solar & Energy AI","Nishati ya Jua","PB"],["savings","📈","Savings Reports","Ripoti za Akiba","PB"],
+["#","SCHOOL OPERATIONS"],
+["transport","🚌","Transport AI","Usafiri","PB"],["bus","📍","Live Bus Tracking","Ufuatiliaji wa Basi","P","epjs"],["assets","📦","Assets & Inventory","Mali na Hesabu","PBL"],["maint","🔧","Maintenance AI","Matengenezo AI","PB"],
+["library","📖","Library Management","Maktaba","PL","pjstcu"],["boarding","🛏️","Boarding / Hostels","Bweni","P","jstcu"],["health","🏥","Health & Medical","Afya","PHT"],["protect","🛡️","Child Protection & Discipline","Ulinzi wa Mtoto","P"],
+["emergency","🚨","Emergency Management","Dharura","PW"],["sports","⚽","Sports & Co-curricular","Michezo","PT","pjstcu"],["lab","🧪","Laboratory Management","Maabara","PT","jstcu"],["compliance","📑","Compliance & Audit","Ukaguzi","P"],
+["#","PEOPLE & COMMUNICATION"],
+["comm","💬","Parent / Sponsor Communication","Mawasiliano","PT"],["portal","👪","Parent Portal","Lango la Mzazi","PT"],["trainer","👩‍🏫","Teacher Training AI","Mafunzo ya Walimu","P"],["scholar","🎓","Scholarships & Support","Ufadhili","PB"],
+["inclusive","♿","Inclusive Education","Elimu Jumuishi","PTH"],["feedback","⭐","Feedback & Satisfaction","Maoni","P"],["hr","👔","HR & Payroll","Rasilimali Watu","P"],
+["#","IDENTITY & SECURITY"],
+["identity","🪪","SCHOOL SAVER ID & Access AI","Kitambulisho AI","PW"],["watchman","🔍","Watchman Scanner","Skana ya Lango","WP"],["fingerprint","👆","Fingerprint Enrolment","Alama za Vidole","P"],
+["gaterec","🚪","Gate Records","Rekodi za Lango","PW"],["visitors","🧑‍🤝‍🧑","Visitor Management","Wageni","PW"],["collection","🧒","Child Collection","Kuchukua Mtoto","PWT","epjs"],
+["#","ADMINISTRATION"],
+["admin","🤖","Administration AI","Msaidizi wa AI","P"],["predict","🔮","Prediction AI","Utabiri AI","PB"],["reports","📊","Reports & Analytics","Ripoti","P"],["approvals","✅","Approvals","Idhini","P"],
+["notes","🔔","Notifications","Arifa",ALL],["settings","⚙️","Settings","Mipangilio",ALL],["subscription","🧾","Subscription","Mpango wa Mwaka","P"]];
+const XR={G:["sports","assets","comm"],K:["food","nutrition","assets"],V:["transport","bus","maint"],M:["maint","assets"],O:["boarding"],Y:["lab","assets"],R:["portal","comm"],H:["health","inclusive"]};
+NAV.forEach(n=>{if(n[0]=="#"||!n[4])return;if(n[4].includes("P")&&!["staff","hr","approvals","fingerprint","protect","subscription"].includes(n[0]))n[4]+="D";Object.entries(XR).forEach(([k,ids])=>{if(ids.includes(n[0])&&!n[4].includes(k))n[4]+=k})});
+/* generic modules: desc, columns, sample rows ({term} = Term/Semester) */
+const MOD={
+academic:["Classes, subjects, lessons and learner progress. Add classes, subjects and lessons below.",["Class / Subject","Teacher","Progress"],[["Mathematics","Mr. Otieno","68%"],["English","Ms. Wanjiru","72%"]]],
+exams:["{term} examinations, marks, report cards and timetables.",["Exam","Date","Status"],[["End-{term} Mathematics","Dec 2","Scheduled"],["End-{term} English","Dec 3","Scheduled"]]],
+digital:["Lessons, assignments, quizzes and learning resources.",["Resource","Subject / Unit","Type"],[["Fractions quiz","Mathematics","Quiz"],["Photosynthesis notes","Science","Reading"]]],
+career:["Interests, skills and career exploration.",["Learner","Interest","Suggested path"],[["Amina S.","Engineering","STEM / TVET"]]],
+workshops:["Workshops, tools, consumables, maintenance and department budgets.",["Workshop","Tools","Condition"],[["Electrical","42","2 need repair"],["Welding","30","Good"]]],
+attach:["Industrial attachment placements, supervisors and assessments.",["Trainee / Student","Employer","Status"],[["Kevin O.","Nairobi Power Co.","Placed"]]],
+faculties:["Faculties, departments, units, campuses and research budgets.",["Faculty / Department","Units","Research budget"],[["Engineering","24","KES 4.2M"],["Education","18","KES 1.8M"]]],
+food:["Purchases, stock, expiry, wastage and meals prepared vs consumed.",["Item","Stock","Alert"],[["Maize flour","120 kg","OK"],["Beans","18 kg","Reorder"]]],
+nutrition:["Meal plans and nutrition tracking, including donor-funded feeding.",["Meal","Day","Cost / child"],[["Githeri","Mon","KES 25"],["Rice & beans","Tue","KES 30"]]],
+procure:["Suppliers, quotations, price comparison, purchase orders and delivery checks. Follows applicable procurement approval rules.",["Request","Best quote","Status"],[["Rice 500 kg","Supplier A KES 62,000","Awaiting approval"]]],
+grants:["Grants, donations (CDF, county, NGOs) and fundraising records.",["Source","Amount","Purpose"],[["County bursary","KES 250,000","Needy learners"]]],
+utilities:["Electricity and water bills, meter readings, abnormal usage and leak alerts.",["Utility","This month","Alert"],[["Electricity","KES 84,000","Normal"],["Water","KES 31,000","Possible leak"]]],
+solar:["Solar generation and savings monitoring.",["System","Output","Saving"],[["Roof array","8 kW","KES 12,000 / month"]]],
+savings:["Actual costs vs budgets and AI recommendations (human approval required).",["Area","Recommendation","Estimated saving"],[["Food","Buy staples in bulk","KES 120,000 / {term}"],["Utilities","Fix water leak","KES 9,000 / month"]]],
+transport:["Vehicles, fuel, mileage, maintenance, insurance and inspection reminders.",["Vehicle","Fuel / km","Reminder"],[["KDA 123A","KES 14","Insurance in 20 days"]]],
+bus:["Live bus location and route status (needs GPS devices).",["Bus","Route","Status"],[["Bus 1","Route A","Not connected"]]],
+assets:["Asset register, QR labels, locations, repairs and losses.",["Asset","Location","Status"],[["Projector #12","Lab 2","Good"]]],
+maint:["Buildings, classrooms, equipment and repair requests.",["Item","Location","Predicted need"],[["Generator","Admin block","Service in 2 weeks"]]],
+emergency:["Emergency contacts, drills, evacuation and incident records.",["Item","Status"],[["Fire drill","Due Nov 20"],["Emergency contacts","Up to date"]]],
+sports:["Teams, fixtures and co-curricular activities.",["Team / Club","Coach","Next event"],[["Football","Mr. Hassan","Sat"]]],
+lab:["Laboratory equipment, chemicals, stock and maintenance.",["Item","Qty","Status"],[["Microscopes","12","Good"]]],
+compliance:["Records for NEMIS/KEMIS, TSC, KNEC and other authorities, plus audit trails and Data Protection Act consent registers.",["Requirement","Due","Status"],[["Consent register","Ongoing","Up to date"],["Annual returns","Jan","Pending"]]],
+comm:["Announcements and alerts by SMS / WhatsApp / app in English and Kiswahili.",["Notice","Audience","Status"],[["Meeting notice","All","Draft"]]],
+trainer:["Training needs and performance support for staff.",["Staff","Training","Status"],[["Mr. Otieno","CBC refresher","Booked"]]],
+scholar:["Bursaries, scholarships and sponsor tracking.",["Learner","Sponsor","Amount"],[["Faith N.","County bursary","KES 20,000"]]],
+inclusive:["Learners needing support and inclusive education plans (authorised access only).",["Learner","Support plan","Review"],[["—","Add plan","—"]]],
+feedback:["Parent, student and staff satisfaction.",["From","Comment","Rating"],[["Parent","Good communication","5/5"]]],
+identity:["Identity and access: guardian links, ID cards (QR / NFC), devices and approved biometric readers. Fingerprint always has non-biometric alternatives.",["Device","Location","Status"],[["Gate reader 1","Main gate","Needs hardware (Build 05)"]]],
+predict:["Forecasts of costs, demand and savings. Predictions are estimates, never guarantees.",["Forecast","Next {term}","Basis"],[["Food cost","KES 940,000","Last 3 {term}s"],["Utilities","KES 310,000","Usage trend"]]]};
+/* ============ STATE ============ */
+const S={v:2,in:false,role:"principal",lang:"en",level:"senior-secondary",view:"dash",offline:false,queue:[],audit:[],alert:null,mods:{},theme:"dark",user:"Administrator",school:null,cu:null,fi:-1,pe:-1,act:-1,reg:{},payLog:[],sched:{f:"Daily",tm:"17:00",ch:["WhatsApp"]},schools:[{n:"Sunrise Primary",lvl:"Primary",fee:12000,st:"Active",ren:"Jan 2027"},{n:"Baraka ECDE",lvl:"ECDE",fee:6000,st:"Active",ren:"Mar 2027"},{n:"Rift TVET",lvl:"TVET",fee:24000,st:"Active",ren:"Jan 2027"}],rep:[],ann:[],tix:[{s:"Sunrise Primary",i:"Gate events not syncing",st:"Open"}]};
+const DBK="ssai_db",uid=()=>(window.crypto&&crypto.randomUUID?crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(16).slice(2));
+const ENUM={"junior-secondary":"junior_secondary","senior-secondary":"senior_secondary"};
+const DB={get(){try{return JSON.parse(localStorage.getItem(DBK))||{}}catch(e){return{}}},set(d){try{localStorage.setItem(DBK,JSON.stringify(d))}catch(e){}},tbl(n){return this.get()[n]||[]},
+ add(n,r){const d=this.get();(d[n]=d[n]||[]).push(r);this.set(d);return r},audit(t,a,row){this.add("audit_logs",{id:uid(),school_id:row.school_id||(t=="schools"?row.id:null),table_name:t,action:a,row_id:row.id||"",new_data:row,occurred_at:new Date().toISOString()})}};
+const DBschool=()=>S.school&&S.school.id?DB.tbl("schools").find(x=>x.id==S.school.id)||null:null;
+const $=id=>document.getElementById(id),L=()=>LV[S.level],lc=()=>LC[S.level];
+const t=(a,b)=>S.lang=="en"?a:b,tok=s=>String(s).replace(/\{(\w+)\}/g,(m,k)=>L()[k]||m);
+const kes=n=>"KES "+Math.round(n).toLocaleString(),now=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),today=()=>new Date().toISOString().slice(0,10);
+const log=a=>S.audit.unshift(now()+" · "+rl(S.role)+" · "+a);
+const rl=r=>r=="teacher"?L().tr:r=="principal"?L().hd:ROLES[r];
+const par=id=>S.parents.find(p=>p.id==id),stuOf=p=>S.students.filter(s=>s.pid==p),bal=s=>s.fee-s.paid;
+const my=()=>S.role=="teacher"?S.students.filter(s=>s.cls==S.cls):S.students;
+const can=(n,r=S.role)=>{if(!n||n[0]=="#")return false;if(n[5]&&!n[5].includes(lc()))return false;if(n[4]&&n[4].includes(RC[r]))return true;return !!(S.cu&&S.cu.rk==r&&(S.cu.ex||[]).includes(n[0]))};
+const tbl=(h,r)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${r.map(x=>`<tr>${x.map(c=>`<td>${c??""}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="${h.length}" class="note">No records yet</td></tr>`}</table></div>`;
+const card=(h,b)=>`<div class="card">${h?`<h4>${h}</h4>`:""}${b}</div>`;
+const head=(eb,h,p)=>`<div class="eb">${eb}</div><h2 class="t">${h}</h2><p class="sub">${p||""}</p>`;
+const fld=([n,p,ty,r])=>Array.isArray(ty)?`<select name="${n}" ${r?"required":""}><option value="">${p}</option>${ty.map(o=>`<option>${o}</option>`).join("")}</select>`:`<input name="${n}" placeholder="${p}" ${ty=="date"?`type="date" aria-label="${p}" title="${p}"`:ty?`type="${ty}"`:""} ${r?"required":""}>`;
+const FM=(on,fs,btn,x="")=>`<form onsubmit="${on}(event)">${fs.map(fld).join("")}${x}<button class="p full">${btn}</button></form>`;
+const fd=e=>{e.preventDefault();return Object.fromEntries(new FormData(e.target))};
+const toast=m=>{const d=document.createElement("div");d.textContent=m;$("toast").appendChild(d);setTimeout(()=>d.remove(),2600)};
+const cls=()=>L().classes.map(c=>`<option ${c==S.cls?"selected":""}>${c}</option>`).join("");
+/* ============ SEED / LEVEL ============ */
+function seed(){
+ const l=L(),c=l.classes,nm=["Brian M.","Amina S.","Kevin O.","Faith N.","Joseph K.","Grace W."],pc=[1,.4,.7,0,.9,.5];
+ S.parents=[{id:1,name:"Achieng W.",phone:"0712000001",fp:true,rel:"Parent"},{id:2,name:"Otieno K.",phone:"0712000002",fp:false,rel:"Parent"},{id:3,name:"Mwangi N.",phone:"0712000003",fp:true,rel:"Sponsor"}];
+ S.students=nm.map((n,i)=>({adm:"S00"+(i+1),name:n,cls:c[i%c.length],pid:[1,2,3,3,2,1][i],fee:l.fee,paid:Math.round(l.fee*pc[i]/1000)*1000,att:i<4?{[today()]:i==2?"A":"P"}:{},ex:{}}));
+ S.teachers={};c.forEach((x,i)=>S.teachers[x]=["Mr. Otieno","Ms. Wanjiru","Mrs. Kamau","Mr. Hassan"][i%4]);
+ S.cls=c[0];S.staff=[{name:"Mr. Otieno",role:l.tr,rk:"teacher",key:"teacher",ex:[],cls:c[0],active:true,salary:45000},{name:"Mr. Hassan",role:"Watchman",rk:"watchman",key:"watchman",ex:[],cls:"-",active:true,salary:18000},{name:"Ms. Njeri",role:"Bursar",rk:"bursar",key:"bursar",ex:[],cls:"-",active:true,salary:40000}];
+ S.adm=[{n:"Peter L.",dob:"",pn:"Lucy L.",ph:"0712000009",cls:c[0],st:"Pending"}];S.inv=[];S.fin=[];S.gate=[];S.vis=[];S.col=[];S.leave=[];S.mods={};S.alert=null;S.queue=[];
+ S.books=[{t:"Mathematics",qty:20,out:2},{t:"Kiswahili Fasihi",qty:12,out:0}];S.dorms=[{n:"Simba House",cap:40,occ:31},{n:"Chui House",cap:40,occ:38}];
+ S.clinic=[];S.meds=[{n:"Paracetamol",qty:120},{n:"ORS sachets",qty:40}];S.inc=[];S.pay=null;S.reg={};S.payLog=[];S.fm=blankFm();S.fi=-1;S.pe=-1;S.cu=null;S.inv=[];
+ S.last={a:"Achieng W.",b:"Brian M.",c:c[0],t:"7:45 AM"};
+}
+function setLevel(k){S.level=k;S.view="dash";seed();if(S.school)S.school.lvl=k;go()}
+/* ============ SHELL ============ */
+function show(id){["load","auth","app"].forEach(x=>$(x).classList.toggle("hidden",x!=id))}
+function authTab(x){const m={l:"loginForm",r:"regForm",a:"actForm"};Object.values(m).forEach(id=>$(id).classList.toggle("hidden",id!=m[x]));$("tl").className=x=="l"?"p":"b";$("tr2").className=x=="r"?"p":"b"}
+function save(){try{localStorage.setItem("ssai_app",JSON.stringify(S))}catch(e){}}
+function doLogin(e){const f=fd(e);S.role=f.role;S.user=f.id.split("@")[0];S.view="dash";S.in=true;show("app");try{go()}catch(x){toast("Error: "+x.message)}}
+function doRegister(e){const f=fd(e);try{const id=uid(),now_=new Date().toISOString();
+ DB.audit("schools","INSERT",DB.add("schools",{id,name:f.n,institution_type:ENUM[f.t]||f.t,registration_number:f.rn||"",county:f.co||"",head_name:f.hd,phone:f.ph,email:f.em||"",status:"pending_verification",created_at:now_}));
+ DB.audit("subscriptions","INSERT",DB.add("subscriptions",{id:uid(),school_id:id,plan:LVN[f.t],annual_amount:PRICE[f.t],status:"pending",starts_on:null,renews_on:null,created_at:now_}));
+ S.school={id,n:f.n,lvl:f.t};LV[f.t].n=f.n;S.user=f.hd;S.role="principal";S.in=true;show("app");setLevel(f.t);S.view="subscription";go();toast("School registered — next: pay the annual subscription (demo)")}catch(x){show("app");toast("Error: "+x.message)}}
+function paySub(e){const f=fd(e),sc=DBschool();if(!sc){toast("Register your school first");return}const sub=DB.tbl("subscriptions").find(x=>x.school_id==sc.id);
+ DB.audit("subscription_payments","INSERT",DB.add("subscription_payments",{id:uid(),school_id:sc.id,subscription_id:sub&&sub.id,amount:+f.amt||PRICE[S.level],provider:f.prov,reference:f.ref,status:"pending",created_at:new Date().toISOString()}));
+ log("Subscription payment submitted: "+f.ref);toast("Submitted — the platform owner will verify it");go()}
+function addTicket(e){const f=fd(e),sc=DBschool();DB.add("support_tickets",{id:uid(),school_id:sc?sc.id:null,school_name:L().n,subject:f.s,status:"open",created_at:new Date().toISOString()});toast("Support request sent");go()}
+function resetDemo(){try{localStorage.removeItem("ssai_app")}catch(x){}location.reload()}
+function logout(){S.in=false;save();show("auth")}
+function pop(id){const o=!$(id).classList.contains("hidden");["np","pm"].forEach(x=>$(x).classList.add("hidden"));if(!o)$(id).classList.remove("hidden")}
+function go2(v){["np","pm"].forEach(x=>$(x).classList.add("hidden"));S.view=v;go()}
+function toggleNet(){S.offline=!S.offline;if(!S.offline&&S.queue.length){S.queue=[];log("Offline events synchronised");toast("Offline records synchronised")}go()}
+function go(){
+ const l=L();document.documentElement.lang=S.lang;document.body.classList.toggle("light",S.theme=="light");
+ $("tag").textContent=t("Smart Schools. Reduced Costs. Brighter Future.","Shule Bora. Gharama Ndogo. Kesho Angavu.");
+ $("trr").innerHTML=`${l.tg}<br><small>From ECDE to University 🇰🇪</small>`;
+ $("lvl").innerHTML=Object.entries(LV).map(([k,v])=>`<option value="${k}" ${k==S.level?"selected":""}>🏫 ${v.n}</option>`).join("");$("lang").value=S.lang;
+ $("role").innerHTML=Object.keys(ROLES).map(k=>`<option value="${k}" ${k==S.role?"selected":""}>${rl(k)}</option>`).join("");
+ $("net").textContent=S.offline?"⚪ "+t("Offline","Nje ya mtandao")+(S.queue.length?" ("+S.queue.length+")":""):"🟢 "+t("Online","Mtandaoni");
+ $("nc").textContent=S.audit.length;$("un").textContent=S.user;$("pmn").textContent=S.user;$("pmr").textContent=rl(S.role);$("yr").textContent=new Date().getFullYear();
+ $("np").innerHTML="<b>Notifications</b>"+(S.audit.slice(0,12).map(a=>`<div class="note">${a}</div>`).join("")||'<p class="note">No new notifications.</p>')+'<button class="b" onclick="go2(\'notes\')">View all</button>';
+ const items=NAV.filter(n=>n[0]=="#"||can(n));
+ if(!items.find(n=>n[0]==S.view))S.view=items.find(n=>n[0]!="#")[0];
+ let h=`<div class="sc"><span style="font-size:24px">🏫</span><div><b>${l.n}</b><br><small class="note">${l.cl=="Class"?"":"Programme-based · "}${S.level.replace("-"," ")}</small></div></div>`;
+ items.forEach((n,i)=>{if(n[0]=="#"){if(items[i+1]&&items[i+1][0]!="#")h+=`<div class="hd">${n[1]}</div>`;return}
+  h+=`<button class="${n[0]==S.view?"on":""}" onclick="S.view='${n[0]}';side.classList.remove('open');go()"><span>${n[1]}</span>${tok(S.lang=="en"?n[2]:n[3])}</button>`});
+ $("side").innerHTML=h+`<button onclick="logout()">🚪 Logout</button>`;
+ $("main").innerHTML=(V[S.view]||gen)();window.scrollTo(0,0);save();
+}
+/* ============ VIEWS ============ */
+const V={
+dash(){
+ const l=L(),r=S.role,ss=S.students,ex=ss.reduce((a,s)=>a+s.fee,0),pd=ss.reduce((a,s)=>a+s.paid,0),pr=ss.filter(s=>/^[PL]$/.test(s.att[today()]||"")).length;
+ const inc=S.fin.filter(f=>f.k=="income").reduce((a,f)=>a+f.amt,0)+pd,exp=S.fin.filter(f=>f.k=="expense").reduce((a,f)=>a+f.amt,0);
+ const st=[["🎓",ss.length,"Total "+l.sts,"PTB"],["✅",pr,t("Present Today","Waliopo Leo")+" ("+(ss.length?Math.round(pr/ss.length*100):0)+"%)","PTW"],["💰",kes(pd),t("Fees Recorded","Ada Iliyorekodiwa"),"PB"],["⚠️",kes(ex-pd),t("Outstanding","Salio"),"PB"],["📈",kes(inc),t("Total Income","Mapato"),"PB"],["📉",kes(exp),t("Total Expenses","Matumizi"),"PB"],["🚪",S.gate.length,t("Gate Events","Matukio ya Lango"),"WP"]];
+ if(r=="teacher")st.push(["⚠️",kes(my().reduce((a,s)=>a+bal(s),0)),t("Class Fee Balances","Salio la Darasa"),"T"]);
+ const qa=[["attendance","📅","Attendance"],["students","➕","Register "+l.st],["fees","🪙","Fee Records"],["staff","👥","Invite Worker"],["watchman","👆","Gate Scanner"],["reports","📊","View Reports"]].filter(a=>can(NAV.find(n=>n[0]==a[0])));
+ const mine=RESP[r]||[];
+ const mv={principal:"approvals",deputy:"attendance",teacher:"attendance",games:"sports",bursar:"fees",watchman:"watchman",librarian:"library",cook:"food",driver:"transport",maintenance:"maint",health:"health",boarding:"boarding",lab:"lab",parent:"portal",super:"company"}[r];
+ const rg=S.last;
+ let h=head(l.n.toUpperCase(),t("School Dashboard","Dashibodi ya Shule"),t("Welcome to your SCHOOL SAVER AI workspace.","Karibu kwenye eneo lako la SCHOOL SAVER AI."))+
+ `<div class="grid g6">${st.filter(s=>s[3].includes(RC[r])).map(s=>`<div class="card stat"><i>${s[0]}</i><span>${s[2]}</span><b>${s[1]}</b></div>`).join("")}
+ ${"PB".includes(RC[r])?`<div class="card stat sav" style="grid-column:span 2">💡 <b>AI Savings</b><span>Optimise food purchasing — potential saving KES 120,000 per ${l.term.toLowerCase()} (estimate)</span><button class="p" onclick="S.view='savings';go()">${t("View Details","Tazama")}</button></div>`:""}</div>
+ <div class="grid g3">
+ ${card(t("Quick Actions","Vitendo vya Haraka"),`<div class="qa">${qa.map(a=>`<button onclick="S.view='${a[0]}';go()"><i>${a[1]}</i>${a[2]}</button>`).join("")}</div>`)}
+ ${card(t("My Workspace","Eneo Langu"),`<div class="role" style="cursor:pointer" onclick="S.view='${mv}';go()"><div class="av">${{principal:"👩🏾‍💼",deputy:"🧑🏾‍💼",teacher:"👩🏾‍🏫",games:"⚽",bursar:"👨🏾‍💼",watchman:"💂",librarian:"📚",cook:"🍲",driver:"🚌",maintenance:"🔧",health:"🩺",boarding:"🛏️",lab:"🧪",parent:"👩🏾",super:"🏢"}[r]}</div><ul>${mine.map(x=>`<li>${x}</li>`).join("")}</ul></div>`)}
+ ${can(NAV.find(n=>n[0]=="watchman"))||r=="principal"?card(l.minor?"Fingerprint Access at Gate":"Campus ID Access",`<div class="ok"><div style="font-size:28px">✅</div><h5>${l.minor?"Parent Verified!":"ID Verified!"}</h5><b>${rg.a}</b><br>${rg.b}<br>${l.cl}: ${rg.c}<br><span class="tag">🔔 Notification Sent</span></div><div style="margin-top:8px"><button class="p" onclick="scan(true,${l.minor?1:"'"+S.students[0].adm+"'"})">👆 ${t("Simulate scan","Jaribu skana")}</button></div>`):""}
+ ${["watchman","principal"].includes(r)?card("Watchman Alert",`<div class="ok" style="text-align:left">🔔 <b>${l.minor?"PARENT ARRIVAL":"CAMPUS ENTRY"}</b><br>${rg.a}<br>${rg.b} - ${rg.c}<br>${rg.t}<br><span class="tag">${l.minor?"Direct to "+l.tr:"Entry recorded"}</span></div>`):""}
+ ${["principal","teacher"].includes(r)?card(l.minor?"Parent Portal":"Sponsor / Student Portal",`<div class="role"><div class="av">👩🏾</div><ul><li>View ${l.st} Info</li><li>Fee Balance: ${kes(bal(S.students[0]))}</li><li>Receive Alerts</li><li>Messages</li></ul></div>`):""}
+ ${"PB".includes(RC[r])?card("School Statistics",`<div class="chart">${[[70,60],[75,65],[72,80],[85,70],[90,88],[93,92]].map(a=>`<div><i style="height:${a[0]}%"></i><i style="height:${a[1]}%"></i></div>`).join("")}</div><p class="note">🟩 Attendance &nbsp; 🟨 Fees collected (sample trend)</p>`):""}
+ </div>`;
+ if(!["principal","bursar","super"].includes(r))h+=card("My Department Reports",`<p class="note">Reports from your assigned responsibilities are shared with the relevant school administrators.</p><button class="p" onclick="S.view='${mv}';go()">Open my department</button>`);
+ if(r=="principal"||r=="bursar")h+=card("School Intelligence — Your school. Your resources. Your savings.",`<div class="ai9">${AI9.map(a=>`<div onclick="S.view='${a[2]}';go()"><i>${a[0]}</i>${a[1]}</div>`).join("")}</div>
+ <h3>AI SAVINGS ASSISTANT</h3><form onsubmit="ask(event)"><input class="full" name="q" placeholder="Ask SCHOOL SAVER AI... (students, fees, attendance, savings)"><button class="p full">Ask</button></form><div id="ans"></div>`);
+ if(r=="principal")h+=card("Recent School Activity",tbl(["Activity","Department","Status"],S.audit.slice(0,6).map(a=>[a,"School","Recorded"])));
+ return h},
+adm(){const l=L();return head("SCHOOL MANAGEMENT","Admissions & Enrolment","Applications, approvals and placement.")+
+ card("New Admission Application",FM("addAdm",[["n",l.st+" full name","",1],["dob","Date of birth","date"],["pn",S.level&&l.minor?"Parent / guardian name":"Sponsor / next of kin",""],["ph","Phone number","",1]],"Submit Application",`<select name="cls">${cls()}</select>`))+
+ card("Applications",tbl([l.st,"Contact","Level",l.cl,"Status",""],S.adm.map((a,i)=>[a.n,a.pn+" · "+a.ph,S.level.replace("-"," "),a.cls,`<span class="tag ${a.st=="Approved"?"":"a"}">${a.st}</span>`,a.st=="Pending"&&S.role=="principal"?`<button class="p" onclick="apprAdm(${i})">Approve</button>`:""])))},
+students(){const l=L();return head("STUDENT MANAGEMENT",l.sts,"Register and manage "+l.sts.toLowerCase()+". Fields below match "+S.level.replace("-"," ")+" requirements.")+
+ card(`Register ${l.st}`,`<form onsubmit="regStu(event)"><input name="sn" placeholder="${l.st} full name" required><input name="adm" placeholder="Admission number" required>
+ <select name="g"><option value="">Gender</option><option>Male</option><option>Female</option><option>Other / Prefer not to say</option></select><select name="cls" ${S.role=="teacher"?"disabled":""}>${cls()}</select>
+ <input name="pn" placeholder="${l.minor?"Parent / guardian name":"Sponsor / next of kin"}" required><input name="ph" placeholder="Phone" required><input name="fee" type="number" value="${l.fee}" placeholder="Fee charged (KES)">
+ ${l.reg.map((f,i)=>fld(["x"+i,f[0],f[1]])).join("")}
+ <label class="full note"><input type="checkbox" name="fp"> Informed consent given${l.minor?" by guardian":""} for fingerprint enrolment (QR / NFC / PIN alternatives always available)</label><button class="p full">Save & submit for approval</button></form>
+ <p class="note">Same phone number = same ${l.minor?"parent, linked to all siblings":"sponsor / next of kin"}.</p>`)+
+ card("Directory",`<input id="sq" placeholder="Search..." oninput="srch(this.value)" style="width:100%;margin-bottom:8px"><div id="sdir">${sdir("")}</div>`)},
+parents(){const l=L();return head("SCHOOL MANAGEMENT",l.pl,"Guardians / sponsors and linked "+l.sts.toLowerCase()+".")+
+ card("Register Guardian",FM("addPar",[["n","Full name","",1],["ph","Phone","",1],["rel","Relationship","",0],["adm","Linked admission number","",1]],"Save",`<select name="auth"><option>Primary Guardian</option><option>Secondary Guardian</option><option>Authorised Collector</option></select>`))+
+ tbl(["Name","Phone","Role","Linked","Verification"],S.parents.map(p=>[p.name,p.phone,p.rel,stuOf(p.id).map(s=>s.name).join(", "),p.fp?"Fingerprint + alternatives":"PIN / QR"]))},
+staff(){const l=L(),f=S.fm,rs=roleList(),pe=S.pe>=0?S.staff[S.pe]:null;
+ return head("STAFF ASSIGNMENT & ACCESS AI","Staff Assignment & Access","Principal → choose role → edit → send secure link → worker activates → reports return to you. Job-based access by default; extra permissions only when you grant them. No money is ever transferred.")+
+ card(S.fi>=0?"Edit assignment (link not yet sent)":"Add School Worker",`<form onsubmit="saveDraft(event)">
+ <input name="n" placeholder="Worker's full name" value="${esc(f.n)}" required><input name="c" placeholder="Phone number or email" value="${esc(f.c)}" required>
+ <select name="r" required onchange="fmSet(this.form)"><option value="">Assign role</option>${rs.map(r=>`<option value="${r[0]}" ${f.r==r[0]?"selected":""}>${tok(r[1])}</option>`).join("")}</select>
+ <input name="d" placeholder="Department" value="${esc(f.d)}">
+ <select name="cl"><option value="">Assigned ${l.cl.toLowerCase()} (if applicable)</option>${l.classes.map(c=>`<option ${f.cl==c?"selected":""}>${c}</option>`).join("")}</select>
+ ${permBox(f.ex)}
+ <button class="p full">${S.fi>=0?"Save changes":"Save as draft"}</button>${S.fi>=0?`<button type="button" class="b full" onclick="S.fi=-1;S.fm=blankFm();go()">Cancel edit</button>`:""}</form>
+ <p class="note">Preview only until you generate the link. You can edit a worker's role, class and permissions any time before the link is generated.</p>`)+
+ (f.r?rolePrev(f.r):"")+
+ card("Invitations — drafts & links",tbl(["Worker","Contact","Role","Extra access","Status","Actions"],S.inv.map((v,i)=>[v.n,v.c,v.r,exNames(v.ex),invSt(v),invAct(v,i)]))+`<p class="note">Send by WhatsApp, SMS or email. Real links will expire (48 h), be single-use and only activate the role you approved.</p>`)+
+ (pe?card("Edit access — "+pe.name,`<form onsubmit="savePerm(event)">${permBox(pe.ex)}<button class="p full">Save permissions</button><button type="button" class="b full" onclick="S.pe=-1;go()">Cancel</button></form>`):"")+
+ card("Staff Directory",tbl(["Name","Role",l.cl,"Extra access","Status",""],S.staff.map((x,i)=>[x.name,`<select onchange="chRole(${i},this.value)">${rs.map(r=>`<option value="${r[0]}" ${(x.key||x.rk)==r[0]?"selected":""}>${tok(r[1])}</option>`).join("")}</select>`,x.cls,exNames(x.ex),x.active?'<span class="tag">Active</span>':'<span class="tag r">Suspended</span>',
+ `<button class="b" onclick="susp(${i})">${x.active?"Suspend":"Activate"}</button> <button class="b" onclick="S.pe=${i};go()">Access</button>`+(ROLES[x.rk]?` <button class="b" onclick="viewAs(${i})">View dashboard</button>`:"")])))},
+attendance(){const l=L(),d=today(),list=S.students.filter(s=>s.cls==S.cls);
+ return head("ATTENDANCE",t("Attendance Register","Daftari la Mahudhurio"),l.att+". "+l.tr+"s record classroom attendance and can see assigned "+l.sts.toLowerCase()+"' fee balances (read-only).")+attStats(list)+
+ card("",`<select onchange="S.cls=this.value;go()" ${S.role=="teacher"?"disabled":""}>${cls()}</select> <input type="date" value="${d}" disabled> ${l.att!="Daily register"?`<input id="per" placeholder="${/unit/.test(l.att)?"Unit / lecture":"Lesson / period"}" style="width:150px">`:""} <span class="note">P Present · A Absent · L Late · E Excused</span>`)+
+ tbl([l.st,"Mark","Note",t("Fee balance","Salio la ada"),"%"],list.map(s=>{const v=s.att[d]||"",a=Object.values(s.att),pc=a.length?Math.round(a.filter(x=>x=="P"||x=="L").length/a.length*100):0;
+ return [s.name,`<span class="seg">${["P","A","L","E"].map(k=>`<button class="${v==k?"on":""}" onclick="mark('${s.adm}','${k}')">${k}</button>`).join("")}</span>`,`<input placeholder="Reason" value="${s.note||""}" onchange="S.students.find(x=>x.adm=='${s.adm}').note=this.value" style="width:110px">`,kes(bal(s)),pc+"%"]}))+
+ `<button class="p" onclick="log('Register saved for '+S.cls);toast('Attendance saved')">Save Attendance</button> <button class="b" onclick="subRep()">Submit class report</button><p class="note">${l.minor?"Gate entry is not classroom attendance — the teacher confirms presence here.":"Campus gate entry is separate from lecture / session attendance."} Unpaid fees never block a ${l.st.toLowerCase()} from lessons.</p>`},
+fees(){const b=S.role=="bursar",l=L(),ss=my(),ex=ss.reduce((a,s)=>a+s.fee,0),pd=ss.reduce((a,s)=>a+s.paid,0);
+ return head("FEES",t("Fees & Arrears","Ada na Madeni"),"Per "+l.term.toLowerCase()+". "+(b?"Bursar manages fee accounts and payments.":"Read-only view — cannot change charges or payments."))+
+ `<div class="grid g6"><div class="card stat"><span>Charged</span><b>${kes(ex)}</b></div><div class="card stat"><span>Payments recorded</span><b>${kes(pd)}</b></div><div class="card stat"><span>Outstanding</span><b>${kes(ex-pd)}</b></div></div>`+
+ (b||S.role=="principal"?card("Fee Account",`<form onsubmit="saveFee(event)"><select name="adm" required><option value="">${l.st}</option>${S.students.map(s=>`<option value="${s.adm}">${s.name} (${s.adm})</option>`).join("")}</select><input name="chg" type="number" min="0" placeholder="Total fee charged (optional change)"><input name="amt" type="number" min="0" placeholder="Externally received payment"><input name="ref" placeholder="Payment reference (e.g. M-PESA code)"><select name="m"><option value="">Method</option><option>M-PESA</option><option>Bank</option><option>Other approved provider</option></select><select name="adj"><option value="">Scholarship / waiver (optional)</option><option>Scholarship</option><option>Bursary</option><option>Waiver</option></select><input name="adjA" type="number" min="0" placeholder="Adjustment amount"><button class="p full">Save Fee Record</button></form><p class="note">SCHOOL SAVER AI records and reconciles. It does not receive, transfer or withdraw school money. A screenshot is not proof of payment.</p>`):"")+
+ tbl([l.st,l.cl,"Charged","Adjustments","Paid","Balance","Status"],ss.map(s=>[s.name,s.cls,kes(s.fee),kes(s.adj||0),kes(s.paid),kes(bal(s)),bal(s)<=0?'<span class="tag">Cleared</span>':'<span class="tag a">Balance</span>']))},
+finance(){const pd=S.students.reduce((a,s)=>a+s.paid,0),ex=S.students.reduce((a,s)=>a+s.fee,0),inc=S.fin.filter(f=>f.k=="income").reduce((a,f)=>a+f.amt,0),exp=S.fin.filter(f=>f.k=="expense").reduce((a,f)=>a+f.amt,0);
+ return head("FINANCIAL INTELLIGENCE","Financial Intelligence AI","Understand income, expenses and budgets.")+
+ `<div class="grid g6"><div class="card stat"><span>Income (incl. fees)</span><b>${kes(inc+pd)}</b></div><div class="card stat"><span>Expenses</span><b>${kes(exp)}</b></div><div class="card stat"><span>Calculated balance</span><b>${kes(inc+pd-exp)}</b></div></div>`+
+ card("Record Income or Expense",FM("addFin",[["k","Type","income expense".split(" "),1],["cat","Category","",1],["amt","Amount (KES)","number",1],["d","Description"]],"Save"))+
+ card("Analysis",`<p>Fees actually received: <b>${kes(pd)}</b> · Expected but not yet received: <b>${kes(ex-pd)}</b> (shown separately — not counted as income).</p><p>Operating result (income − expenses): <b>${kes(inc+pd-exp)}</b>.</p>`)+tbl(["Type","Category","Amount","Note"],S.fin.map(f=>[f.k,f.cat,kes(f.amt),f.d]))},
+hr(){const tot=S.staff.reduce((a,x)=>a+(+x.salary||0),0);return head("HR","HR & Payroll","Staff records, leave and payroll calculations (no salary payments are made here).")+
+ `<div class="grid g6"><div class="card stat"><span>Staff</span><b>${S.staff.length}</b></div><div class="card stat"><span>Monthly payroll</span><b>${kes(tot)}</b></div><div class="card stat"><span>Leave requests</span><b>${S.leave.length}</b></div></div>`+
+ card("Payroll Calculator",FM("calcPay",[["n","Employee name"],["b","Basic salary","number",1],["a","Allowances","number"],["d","Deductions (PAYE, NSSF, SHA, housing levy etc.)","number"]],"Calculate")+(S.pay?`<div class="ans">${S.pay}</div>`:"")+`<p class="note">Enter statutory deductions according to current KRA / NSSF / SHA rules.</p>`)+
+ card("Payroll",tbl(["Staff","Role","Salary"],S.staff.map(x=>[x.name,x.role,kes(x.salary||0)])))+card("Leave",FM("addLeave",[["n","Staff",S.staff.map(x=>x.name),1],["d","Dates","",1]],"Record leave"))+tbl(["Staff","Dates","Status"],S.leave.map(x=>[x.n,x.d,'<span class="tag a">Pending</span>']))},
+watchman(){const l=L(),ps=l.minor?S.parents:S.students;
+ return head("IDENTITY & SECURITY",l.minor?"Watchman Gate Scanner":"Campus Gate Scanner",l.minor?"Verify authorised parent arrival, entry and child collection.":"Verify "+l.sts.toLowerCase()+", staff and visitors using ID card (QR / NFC) or approved biometrics.")+
+ card("Verify",`<select id="gp">${ps.map(p=>`<option value="${p.id||p.adm}">${p.name}</option>`).join("")}</select> <button class="p" onclick="scan(true)">👆 Verify fingerprint</button> <button class="b" onclick="scan(false)">Simulate failed scan</button> <input id="pin" placeholder="PIN (demo 1234)" style="width:130px"> <button class="b" onclick="altVerify()">QR / PIN / ID card</button>
+ <form onsubmit="verify(event)" style="margin-top:10px">${l.minor?`<input name="ph" placeholder="Guardian phone or ID">`:""}<input name="adm" placeholder="${l.st} admission number" required><select name="a"><option value="entry">Entry</option><option value="exit">Exit</option>${l.minor?'<option value="collection">Child Collection</option>':""}</select><button class="p">Verify Record</button></form>
+ <p class="note">${S.offline?"Offline: events stored securely and synced later.":"Online."} The watchman never sees fees or private records. Real fingerprint reading needs approved hardware (Build 05).</p>`)+(S.alert||"")+
+ REG("gr","Gate register — entry / exit",[["name","Full name","",1],["age","Age","number"],["adm","Admission no. (if student)"],["type","Person type",["Student","Parent / guardian","Visitor","Staff","Delivery"],1],["dir","Direction",["In","Out"],1],["why","Purpose"]],"Time in / out is recorded automatically and reported to the principal.")+card("Recent Gate Activity",gateTbl())},
+fingerprint(){const l=L();return head("IDENTITY & SECURITY","Fingerprint Enrolment","Consent register. Templates only (never fingerprint photos); QR / NFC / PIN alternatives always available.")+
+ tbl(["Person","Type","Biometric consent","Alternative",""],(l.minor?S.parents:S.students).map((p,i)=>[p.name,l.minor?"Guardian":l.st,p.fp?'<span class="tag">Enrolled</span>':'<span class="tag a">Not enrolled</span>',"QR / NFC / PIN",`<button class="b" onclick="fp(${l.minor?"par("+p.id+")":"S.students["+i+"]"})">${p.fp?"Revoke":"Enrol (simulated)"}</button>`]))+`<p class="note">A privacy impact assessment and retention policy are required before real deployment.</p>`},
+gaterec(){return head("IDENTITY & SECURITY","Gate Records","Authorised entry and exit history.")+card("",gateTbl())},
+visitors(){return head("IDENTITY & SECURITY","Visitor Management","Record visitors, purpose and arrival / departure times.")+
+ card("Register Visitor",FM("addVis",[["n","Visitor name","",1],["id","ID number","",1],["r","Reason for visit","",1],["h","Person / department visited"]],"Sign in"))+
+ tbl(["Visitor","Reason","Host","In","Out"],S.vis.map((v,i)=>[v.n,v.r,v.h,v.i,v.o||`<button class="b" onclick="S.vis[${i}].o=now();go()">Sign out</button>`]))},
+collection(){const l=L();return head("IDENTITY & SECURITY","Child Collection","Only authorised collectors may collect a "+l.st.toLowerCase()+".")+
+ card("Verify Collector",FM("collect",[["adm",l.st+" admission number","",1],["ph","Collector phone","",1]],"Verify & record handover"))+(S.alert||"")+tbl(["Time",l.st,"Collector","Result"],S.col.map(c=>[c.t,c.s,c.c,c.ok?'<span class="tag">Handed over</span>':'<span class="tag r">Refused</span>']))},
+library(){return head("LEARNING","Library Management","Books, borrowing, returns and overdue records.")+tbl(["Title","Copies","Out","Available",""],S.books.map((b,i)=>[b.t,b.qty,b.out,b.qty-b.out,`<button class="b" onclick="bk(${i},1)">Borrow</button> <button class="b" onclick="bk(${i},-1)">Return</button>`]))+card("Add resource",FM("addBook",[["t","Book / digital resource","",1],["q","Copies","number"]],"Add"))+REG("od","Overdue books",[["book","Book","",1],["who","Borrower","",1],["due","Due date","date"]])},
+boarding(){const h=lc()=="j"||lc()=="s";return head("BOARDING",h?"Boarding Management":"Hostels & Accommodation","Dormitories / hostels, beds, meals and movements.")+tbl(["Block","Capacity","Occupied","Free",""],S.dorms.map((d,i)=>[d.n,d.cap,d.occ,d.cap-d.occ,`<button class="b" onclick="bed(${i},1)">+ Allocate</button> <button class="b" onclick="bed(${i},-1)">− Release</button>`]))},
+health(){const l=L();return head("HEALTH","Health & Medical","Authorised clinic visits, medicine stock and emergencies.")+card("Log clinic visit",FM("addVisit",[["s",l.st,S.students.map(s=>s.name),1],["c","Reason","",1]],"Log"))+tbl(["Time",l.st,"Reason"],S.clinic.map(c=>[c.t,c.s,c.c]))+`<h3>Medicine stock</h3>`+tbl(["Item","Qty"],S.meds.map(m=>[m.n,m.qty<50?m.qty+' <span class="tag a">Low</span>':m.qty]))},
+protect(){if(!S._pv){log("Opened Child Protection records");S._pv=1}return head("RESTRICTED","Child Protection & Discipline","Every access to this section is audit-logged.")+
+ card("File confidential record",`<form onsubmit="addInc(event)"><select name="k"><option>Safeguarding concern</option><option>Behaviour record</option></select><input name="s" placeholder="Name / ID" required><textarea name="d" class="full" placeholder="Factual description only" required></textarea><button class="p full">File record</button></form>`)+tbl(["Time","Type","Person","Status"],S.inc.map(i=>[i.t,i.k,i.s,'<span class="tag a">Controlled follow-up</span>']))},
+portal(){const p=par(1);return head("PARENT PORTAL","Parent / Sponsor Portal","What a linked guardian sees: linked children, attendance, fee balance and announcements.")+stuOf(p.id).map(x=>card(x.name,`<p>${L().cl}: ${x.cls} · ${L().tr}: ${S.teachers[x.cls]||"-"}</p><p>Fee balance: <b>${kes(bal(x))}</b></p><p>Attendance today: ${x.att[today()]||"—"}</p>`)).join("")+card("Announcements",S.ann.map(a=>`<div class="note">${a}</div>`).join("")||'<p class="note">No announcements.</p>')},
+sports(){const nm=S.students.map(x=>x.name);return head("SPORTS","Sports & Co-curricular","Teams, participation, results, schedules, equipment and injuries.")+
+ REG("tm","Teams",[["team","Team name","",1],["sport","Sport / activity"],["coach","Coach"]])+REG("pt","Student participation",[["student","Student",nm,1],["act","Team / activity"]])+REG("res","Competitions & results",[["comp","Competition","",1],["opp","Opponent / venue"],["result","Result","",1]])+
+ REG("sc","Training schedule",[["day","Day / time","",1],["team","Team"]])+REG("eq","Sports equipment",[["item","Equipment","",1],["qty","Quantity","number"],["cond","Condition",["Good","Needs repair","Lost"]]])+REG("inj","Injuries",[["student","Student",nm,1],["inj","Injury / incident","",1],["ref","Refer to health staff",["Yes","No"]]],"Referred cases are shared only with authorised health staff.")+
+ `<p><button class="p" onclick="deptRep('Sports')">Submit sports report to principal</button></p>`},
+food(){return head("FOOD SAVER AI","Food Saver AI","Food received, consumption, stock, wastage and purchase requests.")+
+ REG("recv","Food received",[["item","Food item","",1],["qty","Quantity","",1],["sup","Supplier"],["exp","Expiry date","date"]])+REG("cons","Daily consumption",[["meal","Meal","",1],["prep","Meals prepared","number",1],["eat","Meals consumed","number"]])+
+ REG("stock","Remaining stock",[["item","Item","",1],["left","Remaining","",1]])+REG("waste","Wastage",[["item","Item","",1],["amt","Amount wasted","",1],["why","Reason"]])+
+ REG("req","Purchase requests",[["item","Item requested","",1],["qty","Quantity","",1],["why","Reason"]],"Requests need the principal's approval. Nothing is paid through SCHOOL SAVER AI.")+`<p><button class="p" onclick="deptRep('Food')">Submit food report to principal</button></p>`},
+transport(){const km=(S.reg.fuel||[]).reduce((a,r)=>a+(+r.km||0),0),lt=(S.reg.fuel||[]).reduce((a,r)=>a+(+r.l||0),0);return head("TRANSPORT AI","Transport AI","Vehicle assigned, trips, pick-up and drop-off, fuel, mileage and inspections.")+
+ REG("trip","Daily trips",[["veh","Vehicle assigned","",1],["route","Route","",1],["type","Trip",["Morning pickup","Afternoon drop-off","Other trip"]],["n","Students carried","number"]])+
+ REG("fuel","Fuel & mileage",[["veh","Vehicle","",1],["l","Fuel (litres)","number",1],["km","Mileage (km)","number",1]],lt?"Efficiency so far: "+(km/lt).toFixed(1)+" km per litre.":"")+
+ REG("insp","Inspection & maintenance reports",[["veh","Vehicle","",1],["res","Report","",1],["next","Next service due","date"]])+`<p><button class="p" onclick="deptRep('Transport')">Submit transport report to principal</button></p>`},
+maint(){return head("MAINTENANCE AI","Maintenance AI","Repair requests and status.")+REG("repair","Repair requests",[["item","Repair needed","",1],["loc","Location","",1],["pr","Priority",["Low","Medium","Urgent"]]],"Requests go to the principal for approval.")+`<p><button class="p" onclick="deptRep('Maintenance')">Submit maintenance report to principal</button></p>`},
+lab(){return head("LABORATORY","Laboratory Management","Stock, equipment and safety records.")+REG("lstock","Laboratory stock",[["item","Item","",1],["qty","Quantity","number"],["cond","Condition",["Good","Low stock","Needs repair"]]])+REG("safe","Safety records",[["what","Safety check / incident","",1]])},
+notes(){return head("NOTIFICATIONS","Notifications Centre","Department alerts, reminders and school announcements.")+card("",S.audit.concat(S.ann).map(a=>`<div class="note">${a}</div>`).join("")||'<p class="note">No new notifications.</p>')},
+approvals(){return head("ADMINISTRATION","Approvals","Submitted records and invitations awaiting approval.")+card("Class reports",tbl(["Time","Class","Submitted by","Attendance today"],S.rep.map(r=>[r.t,r.c,r.by,r.d])))+card("Admissions",tbl(["Name","Class","Status",""],S.adm.map((a,i)=>[a.n,a.cls,a.st,a.st=="Pending"?`<button class="p" onclick="apprAdm(${i})">Approve</button>`:""])))+card("Invitations",tbl(["Name","Role","Status"],S.inv.map(v=>[v.n,v.r,invSt(v)])))+reqCard()},
+reports(){const D=depts(),tx=shareText();return head("CENTRAL REPORTS","Reports & Analytics","Principal ← Central Reports ← Department workflows. Everything your team records arrives here. Calculation and reporting only — no money is transferred.")+
+ `<div class="grid g3">${D.map(d=>card(d.icon+" "+d.n,`<p><b>${d.v}</b></p><p class="note">Source: ${d.src}</p><button class="b" onclick="S.view='${d.go}';go()">Open</button>`)).join("")}</div>`+
+ card("Automatic report schedule",`<form onsubmit="saveSched(event)"><select name="f">${["Daily","Weekly","Monthly"].map(x=>`<option ${S.sched.f==x?"selected":""}>${x}</option>`).join("")}</select><input name="tm" type="time" value="${S.sched.tm}">${["WhatsApp","SMS","Email"].map(c=>`<label class="note"><input type="checkbox" name="ch" value="${c}" ${S.sched.ch.includes(c)?"checked":""}> ${c}</label>`).join("")}<button class="p">Save schedule</button></form><p class="note">Saved: ${S.sched.f} at ${S.sched.tm} via ${S.sched.ch.join(", ")||"—"}. Automatic sending needs the secure backend; use Share now until then.</p>`)+
+ card("Share now",`<div class="ans">${tx}</div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(tx)}">WhatsApp</a><a class="btn" href="mailto:?subject=${encodeURIComponent("School report")}&body=${encodeURIComponent(tx)}">Email</a> <button class="b" onclick="csv()">⬇ Fees CSV</button>`)+
+ card("Class & department reports submitted",tbl(["Time","From","Submitted by","Summary"],S.rep.map(r=>[r.t,r.c,r.by,r.d])))},
+admin(){return head("ADMINISTRATION AI","Administration AI","Authorised summaries, drafts and reminders.")+card("AI Savings Assistant",`<form onsubmit="ask(event)"><input class="full" name="q" placeholder="Ask about students, fees, attendance, savings..."><button class="p full">Ask</button></form><div id="ans"></div>`)},
+settings(){return head("SETTINGS","Settings","")+card("Institution Settings",`<form onsubmit="saveSet(event)"><input name="n" value="${L().n}"><select name="th"><option value="dark">Dark - Black & Emerald</option><option value="light" ${S.theme=="light"?"selected":""}>Light - White & Emerald</option></select><button class="p">Save</button></form>`)+card("Security",`<p class="note">Role-based access, audit logs, school data isolation, encrypted communication and backups are enforced by the secure backend (Build 03). This file never holds API keys or passwords.</p>`)+card("Contact SCHOOL SAVER AI support",FM("addTicket",[["s","Describe the problem or request","",1]],"Send"))+card("Demo data",`<button class="d" onclick="resetDemo()">Reset demo data</button><p class="note">Clears the saved demo data in this browser.</p>`)+card("Development roadmap (this file = Build 02 prototype)",tbl(["Build","Stage"],ROAD))},
+subscription(){const sc=DBschool(),sub=sc&&DB.tbl("subscriptions").find(x=>x.school_id==sc.id),pays=sc?DB.tbl("subscription_payments").filter(x=>x.school_id==sc.id):[],amt=PRICE[S.level];
+ return head("SUBSCRIPTION","Subscription","Annual plan for "+L().n+". Payments here go to SCHOOL SAVER AI — they are not school fees. DEMO: no real money moves.")+
+ `<div class="grid g6"><div class="card stat"><span>Plan</span><b>${LVN[S.level]}</b></div><div class="card stat"><span>Per year</span><b>${kes(amt)}</b></div><div class="card stat"><span>Status</span><b>${sub?sub.status:"not registered"}</b></div><div class="card stat"><span>Renews</span><b>${sub&&sub.renews_on?sub.renews_on:"—"}</b></div></div>`+
+ (sc?card("Pay annual subscription (demo)",FM("paySub",[["prov","Provider",["M-PESA","Bank","Other"],1],["ref","Payment reference (e.g. M-PESA code)","",1],["amt","Amount (KES) — "+amt,"number"]],"Submit payment for verification")+`<p class="note">The platform owner verifies the reference, then your subscription becomes active.</p>`):card("","<p>Register your school first (Logout → Register School) to start a subscription.</p>"))+
+ tbl(["Reference","Provider","Amount","Status"],pays.map(x=>[x.reference,x.provider,kes(x.amount),x.status]))}
+};
+const AI9=[["💰","Financial AI","finance"],["🍲","Food AI","food"],["🛒","Procurement AI","procure"],["⚡","Utilities AI","utilities"],["🚌","Transport AI","transport"],["📦","Asset AI","assets"],["🔮","Prediction AI","predict"],["⚙️","Admin AI","admin"],["🪪","ID & Access AI","identity"]];
+function gen(){const n=NAV.find(x=>x[0]==S.view),m=MOD[S.view]||["Planned for a later build.",["Item","Status"],[["—","Planned"]]];
+ if(!S.mods[S.view])S.mods[S.view]=m[2].map(r=>r.map(tok));const cols=m[1];
+ return head("SCHOOL SAVER AI MODULE",n[1]+" "+tok(S.lang=="en"?n[2]:n[3]),tok(m[0]))+tbl(cols,S.mods[S.view])+card("Add record",`<form onsubmit="addRow(event)">${cols.map((c,i)=>`<input name="c${i}" placeholder="${c}" required>`).join("")}<button class="p full">Add</button></form>`)}
+/* ============ ACTIONS ============ */
+function gateTbl(){return tbl(["Time","Person",L().sts,"Method","Result"],S.gate.map(g=>[g.time,g.p,g.s,g.m,g.ok?'<span class="tag">Verified</span>':'<span class="tag r">Escalated</span>']))}
+function sdir(q){return tbl(["ID",L().st,L().cl,L().minor?"Guardian":"Sponsor","Verify"],S.students.filter(s=>(s.name+s.adm).toLowerCase().includes(q.toLowerCase())&&(S.role!="teacher"||s.cls==S.cls)).map(s=>[s.adm,s.name,s.cls,par(s.pid)?.name,par(s.pid)?.fp?'<span class="tag">FP</span>':'<span class="tag a">PIN/QR</span>']))}
+function srch(q){$("sdir").innerHTML=sdir(q)}
+function regStu(e){const f=fd(e),l=L();let p=S.parents.find(x=>x.phone==f.ph);if(!p){p={id:S.parents.length+1,name:f.pn,phone:f.ph,fp:!!f.fp,rel:l.minor?"Parent":"Sponsor"};S.parents.push(p)}
+ const ex={};l.reg.forEach((r,i)=>ex[r[0]]=f["x"+i]||"");S.students.push({adm:f.adm,name:f.sn,cls:f.cls||S.cls,pid:p.id,fee:+f.fee||0,paid:0,att:{},ex,g:f.g});log("Registered "+f.sn);toast("Saved — submitted for approval");go()}
+function addAdm(e){const f=fd(e);S.adm.push({n:f.n,dob:f.dob,pn:f.pn,ph:f.ph,cls:f.cls,st:"Pending"});log("Admission application "+f.n);go()}
+function apprAdm(i){const a=S.adm[i];a.st="Approved";let p=S.parents.find(x=>x.phone==a.ph);if(!p){p={id:S.parents.length+1,name:a.pn,phone:a.ph,fp:false,rel:L().minor?"Parent":"Sponsor"};S.parents.push(p)}
+ S.students.push({adm:"S"+String(S.students.length+1).padStart(3,"0"),name:a.n,cls:a.cls,pid:p.id,fee:L().fee,paid:0,att:{},ex:{}});log("Approved admission "+a.n);go()}
+function addPar(e){const f=fd(e),s=S.students.find(x=>x.adm==f.adm);if(!s){toast("Admission number not found");return}
+ const p={id:S.parents.length+1,name:f.n,phone:f.ph,fp:false,rel:f.rel||f.auth};S.parents.push(p);log("Guardian "+f.n+" linked to "+s.name);go()}
+const roleList=()=>BASE_ROLES.concat(L().sr.filter(x=>!BASE_ROLES.some(b=>b[0]==x[0])));
+const labelOf=k=>tok((roleList().find(r=>r[0]==k)||[0,k])[1]);
+const roleMods=rk=>NAV.filter(n=>n[0]!="#"&&can(n,rk));
+const exNames=ex=>(ex||[]).map(id=>{const n=NAV.find(x=>x[0]==id);return n?tok(n[2]):id}).join(", ")||"—";
+const invSt=v=>v.st=="Draft"?'<span class="tag a">Draft (editable)</span>':Date.now()>v.exp?'<span class="tag r">Expired</span>':`<span class="tag">${v.st}</span> <span class="note">expires ${new Date(v.exp).toLocaleString()}</span>`;
+function permBox(sel){sel=sel||[];const items=NAV.filter(n=>n[0]!="#"&&!["company","staff","approvals","dash","notes","settings"].includes(n[0])&&(!n[5]||n[5].includes(lc())));
+ return `<details class="full"><summary>Additional permissions (optional) — ${sel.length} granted</summary><div class="grid g3">${items.map(n=>`<label><input type="checkbox" name="px" value="${n[0]}" ${sel.includes(n[0])?"checked":""}> ${n[1]} ${tok(n[2])}</label>`).join("")}</div></details>`}
+function rolePrev(key){const rk=RK[key]||key;return card("Assigned dashboard preview — "+labelOf(key),`<p><b>Responsibilities</b></p><ul>${(RESP[rk]||[]).map(x=>`<li>${x}</li>`).join("")}</ul><p class="note"><b>Default modules:</b> ${roleMods(rk).map(n=>tok(n[2])).join(", ")||"—"}</p>`)}
+function fmSet(f){const d=new FormData(f);S.fm={n:d.get("n")||"",c:d.get("c")||"",r:d.get("r")||"",d:d.get("d")||"",cl:d.get("cl")||"",ex:d.getAll("px")};go()}
+function saveDraft(e){e.preventDefault();const d=new FormData(e.target),key=d.get("r"),o={n:d.get("n"),c:d.get("c"),key,rk:RK[key]||key,r:labelOf(key),d:d.get("d")||"",cl:d.get("cl")||"",ex:d.getAll("px")};
+ if(S.fi>=0&&S.inv[S.fi]&&S.inv[S.fi].st=="Draft")Object.assign(S.inv[S.fi],o);else S.inv.push({...o,st:"Draft"});
+ S.fi=-1;S.fm=blankFm();log("Assignment saved for "+o.n+" ("+o.r+")");toast("Draft saved — review it, then generate the link");go()}
+function editInv(i){const v=S.inv[i];S.fi=i;S.fm={n:v.n,c:v.c,r:v.key,d:v.d||"",cl:v.cl||"",ex:(v.ex||[]).slice()};go()}
+function delInv(i){S.inv.splice(i,1);go()}
+function mkLink(i){const v=S.inv[i],code="SSAI-"+Math.random().toString(36).slice(2,10).toUpperCase();v.code=code;v.link=(location.href||"https://app.schoolsaver.ai/").split("#")[0]+"#invite="+code;v.exp=Date.now()+48*36e5;v.st="Link ready";log("Secure link generated for "+v.n);go()}
+function revInv(i){const v=S.inv[i];v.st="Draft";v.code=null;v.link=null;v.exp=0;log("Link revoked for "+v.n);editInv(i)}
+function sent(i){S.inv[i].st="Sent";log("Invitation sent to "+S.inv[i].n);setTimeout(go,400)}
+function copyL(i){try{navigator.clipboard.writeText(S.inv[i].link)}catch(x){}toast("Link copied — send it to the worker")}
+function msgText(v){return L().n+" invites you to join SCHOOL SAVER AI as "+v.r+". Open your secure link (single use, expires in 48 hours): "+v.link}
+function invAct(v,i){if(v.st=="Draft")return `<button class="b" onclick="editInv(${i})">Edit</button> <button class="b" onclick="delInv(${i})">Delete</button> <button class="p" onclick="mkLink(${i})">Generate link</button>`;
+ const m=encodeURIComponent(msgText(v)),em=String(v.c).includes("@");
+ return (em?`<a class="btn" target="_blank" rel="noopener" href="mailto:${esc(v.c)}?subject=${encodeURIComponent("Your SCHOOL SAVER AI invitation")}&body=${m}" onclick="sent(${i})">✉ Email</a>`:`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${ph(v.c)}?text=${m}" onclick="sent(${i})">WhatsApp</a><a class="btn" href="sms:${esc(v.c)}?&body=${m}" onclick="sent(${i})">SMS</a>`)+` <button class="b" onclick="copyL(${i})">Copy link</button> <button class="b" onclick="openInvite(${i})">Open worker link</button> <button class="b" onclick="revInv(${i})">Revoke & edit</button>`}
+function openInvite(i){const v=S.inv[i];if(Date.now()>v.exp){toast("Link expired — revoke and resend");return}S.act=i;show("auth");authTab("a");$("actT").textContent="Welcome, "+v.n;$("actP").textContent="Role: "+v.r+". Verify the contact the invitation was sent to, create your password and open your dashboard."}
+function doActivate(e){const f=fd(e),v=S.inv[S.act];if(!v){toast("Invitation not found");return}if(Date.now()>v.exp){toast("Link expired");return}
+ if(nc(f.c)!=nc(v.c)){toast("That contact does not match the invitation");return}if(f.pw.length<6||f.pw!=f.pw2){toast("Passwords must match (6+ characters)");return}
+ const x={name:v.n,role:v.r,key:v.key,rk:v.rk,cls:v.cl||"-",active:true,salary:0,ex:v.ex||[],c:v.c};S.staff.push(x);S.inv.splice(S.act,1);S.act=-1;S.cu=x;S.role=ROLES[v.rk]?v.rk:"teacher";S.user=v.n;S.view="dash";show("app");go();toast("Account activated — "+v.r+" dashboard ready")}
+function viewAs(i){const x=S.staff[i];if(!x||!ROLES[x.rk])return;S.cu=x;S.role=x.rk;S.view="dash";go()}
+function chRole(i,k){const x=S.staff[i];x.key=k;x.rk=RK[k]||k;x.role=labelOf(k);log("Role changed: "+x.name+" → "+x.role);go()}
+function savePerm(e){e.preventDefault();S.staff[S.pe].ex=new FormData(e.target).getAll("px");log("Permissions updated for "+S.staff[S.pe].name);S.pe=-1;go()}
+function susp(i){S.staff[i].active=!S.staff[i].active;log("Staff status: "+S.staff[i].name);go()}
+function mark(a,k){const s=S.students.find(x=>x.adm==a);s.att[today()]=k;log("Attendance "+s.name+" "+k);if(k=="A")log("Absence alert queued for "+(par(s.pid)?.name||"guardian"));go()}
+function saveFee(e){const f=fd(e),s=S.students.find(x=>x.adm==f.adm);if(+f.chg)s.fee=+f.chg;if(+f.adjA){s.fee=Math.max(0,s.fee-+f.adjA);s.adj=(s.adj||0)+ +f.adjA;log((f.adj||"Adjustment")+" "+kes(+f.adjA)+" for "+s.name)}if(+f.amt){if(!f.ref){toast("Payment reference required");return}s.paid=Math.min(s.fee,s.paid+ +f.amt);log("Payment "+kes(+f.amt)+" ref "+f.ref+" ("+s.name+")");S.payLog.unshift({t:now(),amt:+f.amt,ref:f.ref})}go()}
+function addFin(e){const f=fd(e);S.fin.push({k:f.k,cat:f.cat,amt:+f.amt,d:f.d});log("Recorded "+f.k+" "+kes(+f.amt));go()}
+function calcPay(e){const f=fd(e);S.pay=`${f.n||"Employee"}: basic ${kes(+f.b)} + allowances ${kes(+f.a||0)} − deductions ${kes(+f.d||0)} = <b>Net ${kes(+f.b+(+f.a||0)-(+f.d||0))}</b>`;go()}
+function addLeave(e){const f=fd(e);S.leave.push(f);go()}
+function beep(){try{const c=new AudioContext(),o=c.createOscillator();o.frequency.value=880;o.connect(c.destination);o.start();setTimeout(()=>o.stop(),350)}catch(e){}}
+function person(id){const l=L();if(l.minor){const p=par(id);return p&&{name:p.name,kids:stuOf(p.id)}}const s=S.students.find(x=>x.adm==id);return s&&{name:s.name,kids:[s]}}
+function okAlert(who,m,k){const l=L(),rg=k[0];beep();navigator.vibrate&&navigator.vibrate(300);S.last={a:who,b:l.minor?(rg?rg.name:"-"):"ID verified ("+m+")",c:rg?rg.cls:"-",t:now()};
+ S.alert=`<div class="alert"><b>${l.minor?"PARENT ARRIVAL ALERT":"CAMPUS ENTRY"}</b><br>${l.minor?"Parent":l.st}: ${who} <span class="tag">Verified</span><br>${k.map(x=>`${l.st}: ${x.name} · ${l.cl}: ${x.cls}${l.minor?" · "+l.tr+": "+(S.teachers[x.cls]||"-"):""}`).join("<br>")}<br>Time: ${S.last.t}</div>`}
+function logG(who,kids,m,ok){const ev={time:now(),p:who,s:kids.map(k=>k.name).join(", "),m,ok};S.gate.unshift(ev);if(S.offline)S.queue.unshift(ev)}
+function scan(ok,id){const p=person(id||$("gp")?.value||1);if(!p)return;if(ok)okAlert(p.name,"Fingerprint",p.kids);else S.alert=`<div class="alert bad"><b>Verification failed</b><br>Escalate to supervisor or use QR / PIN / ID card.</div>`;logG(p.name,p.kids,"Fingerprint",ok);go()}
+function altVerify(){const p=person($("gp").value),pin=($("pin")||{}).value;if(pin=="1234"){okAlert(p.name,"PIN",p.kids);logG(p.name,p.kids,"PIN",true)}else S.alert=`<div class="alert bad"><b>Wrong or missing PIN</b><br>Escalate to the office.</div>`;go()}
+function verify(e){const f=fd(e),l=L(),s=S.students.find(x=>x.adm==f.adm);let ok=!!s;if(ok&&l.minor){const p=S.parents.find(x=>x.phone==f.ph);ok=!!p&&s.pid==p.id}
+ if(ok){okAlert(l.minor?par(s.pid).name:s.name,"Record",[s]);if(f.a=="collection")S.col.unshift({t:now(),s:s.name,c:par(s.pid).name,ok:true})}else S.alert=`<div class="alert bad"><b>Not authorised</b><br>No matching guardian link. Escalate to the office.</div>`;logG(f.ph||"ID",s?[s]:[],"Record "+f.a,ok);go()}
+function collect(e){const f=fd(e),s=S.students.find(x=>x.adm==f.adm),p=S.parents.find(x=>x.phone==f.ph),ok=!!(s&&p&&s.pid==p.id);
+ S.col.unshift({t:now(),s:s?s.name:f.adm,c:p?p.name:f.ph,ok});if(ok)okAlert(p.name,"Collection",[s]);else S.alert=`<div class="alert bad"><b>Collection refused</b><br>Person is not an authorised collector for this ${L().st.toLowerCase()}.</div>`;log("Collection "+(ok?"handover":"refused")+" "+f.adm);go()}
+function fp(p){p.fp=!p.fp;log("Biometric consent "+(p.fp?"enrolled":"revoked")+": "+p.name);go()}
+function addVis(e){const f=fd(e);S.vis.unshift({...f,i:now()});log("Visitor "+f.n);go()}
+function bk(i,d){const b=S.books[i];if(d>0&&b.out>=b.qty||d<0&&b.out<=0)return;b.out+=d;go()}
+function addBook(e){const f=fd(e);S.books.push({t:f.t,qty:+f.q||1,out:0});go()}
+function bed(i,d){const x=S.dorms[i];if(d>0&&x.occ>=x.cap||d<0&&x.occ<=0)return;x.occ+=d;log("Bed change "+x.n);go()}
+function addVisit(e){const f=fd(e);S.clinic.unshift({t:now(),s:f.s,c:f.c});log("Clinic visit logged");go()}
+function addInc(e){const f=fd(e);S.inc.unshift({t:now(),k:f.k,s:f.s});log("Confidential protection record filed");go()}
+function addRow(e){const f=fd(e);S.mods[S.view].push(Object.values(f));log("Added record: "+S.view);go()}
+function saveSet(e){const f=fd(e);L().n=f.n;S.theme=f.th;go()}
+function csv(){const r=["Admission,Name,Class,Charged,Paid,Balance"].concat(S.students.map(s=>[s.adm,s.name,s.cls,s.fee,s.paid,bal(s)].join(",")));const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([r.join("\n")],{type:"text/csv"}));a.download="fees.csv";a.click()}
+function ask(e){const q=(fd(e).q||"").toLowerCase(),ss=S.students,pd=ss.reduce((a,s)=>a+s.paid,0),ex=ss.reduce((a,s)=>a+s.fee,0),pr=ss.filter(s=>/^[PL]$/.test(s.att[today()]||"")).length;let a;
+ if(/fee|balance|owe|arrear|outstanding/.test(q))a=`Fees recorded: ${kes(pd)}. Outstanding: ${kes(ex-pd)} across ${ss.filter(s=>bal(s)>0).length} ${L().sts.toLowerCase()}. (Based on bursar records.)`;
+ else if(/attend|present|absent/.test(q))a=`${pr} of ${ss.length} ${L().sts.toLowerCase()} marked present or late today.`;
+ else if(/student|pupil|learner|trainee|child/.test(q))a=`${ss.length} ${L().sts.toLowerCase()} registered.`;
+ else if(/staff|teacher|worker/.test(q))a=`${S.staff.length} staff on record.`;
+ else if(/sav|cost|food|reduce/.test(q))a="Suggestion (estimate, needs your approval): review food purchasing in bulk and fix the possible water leak flagged in Utilities. Open Savings Reports for the supporting data.";
+ else a="I can answer about students, fees, attendance, staff and savings using your school records.";
+ const el=$("ans");if(el)el.innerHTML=`<div class="ans">${a}</div>`}
+function attPct(list,days){let p=0,n=0;const lim=Date.now()-days*864e5-864e5;list.forEach(s=>Object.entries(s.att).forEach(([d,v])=>{if(new Date(d).getTime()>=lim){n++;if(v=="P"||v=="L")p++}}));return n?Math.round(p/n*100)+"%":"—"}
+function attStats(l){return `<div class="grid g6"><div class="card stat"><span>Daily attendance</span><b>${attPct(l,1)}</b></div><div class="card stat"><span>Weekly</span><b>${attPct(l,7)}</b></div><div class="card stat"><span>Monthly</span><b>${attPct(l,30)}</b></div></div>`}
+function subRep(){S.rep.unshift({t:now(),c:S.cls,by:rl(S.role),d:attPct(S.students.filter(s=>s.cls==S.cls),1)});log("Class report submitted for "+S.cls);toast("Class report sent to the principal");go()}
+function schSt(i){const x=S.schools[i];if(x.st=="Active")x.st="Suspended";else{x.st="Active";x.ren="Jan "+(new Date().getFullYear()+1)}log("School "+x.n+" "+x.st);go()}
+function addAnn(e){const f=fd(e);S.ann.unshift(now()+" · "+f.m);go()}
+function REG(key,title,fs,note){const A=key=="req"||key=="repair",rows=S.reg[key]||[];return card(title,`<form onsubmit="addReg(event,'${key}')">${fs.map(fld).join("")}<button class="p full">Add</button></form>${note?`<p class="note">${note}</p>`:""}`+tbl(["Time",...fs.map(f=>f[1]),...(A?["Status"]:[])],rows.map(r=>[r._t,...fs.map(f=>r[f[0]]),...(A?[r.st]:[])])))}
+function addReg(e,k){const f=fd(e);f._t=now();if(k=="req"||k=="repair")f.st="Pending";(S.reg[k]=S.reg[k]||[]).unshift(f);if(k=="inj"&&f.ref=="Yes"){S.clinic.unshift({t:now(),s:f.student,c:"Sports injury referral: "+f.inj});log("Injury referred to health staff")}
+ if(k=="gr")S.gate.unshift({time:f._t,p:f.name,s:f.adm||f.type,m:"Register "+f.dir,ok:true});log("Record added: "+k);go()}
+function reqCard(){const rows=[];["req","repair"].forEach(k=>(S.reg[k]||[]).forEach((r,i)=>rows.push([k=="req"?"Food purchase":"Repair",r.item+(r.qty?" ("+r.qty+")":"")+(r.loc?" @ "+r.loc:""),r.st=="Pending"?`<button class="p" onclick="apprReq('${k}',${i})">Approve</button>`:'<span class="tag">Approved</span>'])));return card("Requests awaiting approval",tbl(["Type","Request",""],rows)+`<p class="note">Approval authorises the request only. SCHOOL SAVER AI never pays suppliers or moves money.</p>`)}
+function apprReq(k,i){S.reg[k][i].st="Approved";log("Approved "+k+" request");go()}
+function deptRep(d){S.rep.unshift({t:now(),c:d,by:rl(S.role),d:depts().filter(x=>x.n.toLowerCase().startsWith(d.toLowerCase())).map(x=>x.v).join("")||"Submitted"});log(d+" report submitted");toast(d+" report sent to the principal");go()}
+function depts(){const R=k=>S.reg[k]||[],sm=(k,f)=>R(k).reduce((a,r)=>a+(+r[f]||0),0),cn=k=>R(k).length,ss=S.students,d=today(),cl=[...new Set(ss.map(x=>x.cls))],marked=cl.filter(c=>ss.some(x=>x.cls==c&&x.att[d])).length,pr=ss.filter(x=>/^[PL]$/.test(x.att[d]||"")).length,
+ gin=R("gr").filter(r=>r.dir=="In").length,gout=R("gr").filter(r=>r.dir=="Out").length,pay=S.payLog.reduce((a,x)=>a+x.amt,0),km=sm("fuel","km"),lt=sm("fuel","l");
+ return [{n:"Gate report",icon:"🚪",src:"Watchman",v:`${S.gate.length} gate records · register: ${gin} in / ${gout} out`,go:"watchman"},
+ {n:"Attendance summary",icon:"📋",src:"Class teachers",v:`${marked}/${cl.length} ${L().cl.toLowerCase()}s marked · ${pr}/${ss.length} present`,go:"attendance"},
+ {n:"Fee report",icon:"💳",src:"Bursar",v:`${kes(pay)} payments recorded · ${kes(ss.reduce((a,x)=>a+bal(x),0))} outstanding`,go:"fees"},
+ {n:"Sports report",icon:"⚽",src:"Games teacher",v:`${cn("res")} results · ${cn("tm")} teams · ${cn("inj")} injuries`,go:"sports"},
+ {n:"Food report",icon:"🍲",src:"Cook / Food manager",v:`${cn("recv")} deliveries · ${sm("cons","eat")} meals consumed of ${sm("cons","prep")} prepared · ${cn("waste")} wastage entries`,go:"food"},
+ {n:"Transport report",icon:"🚌",src:"Driver",v:`${cn("trip")} trips · ${lt} L · ${km} km`+(lt?` (${(km/lt).toFixed(1)} km/L)`:""),go:"transport"},
+ {n:"Library report",icon:"📖",src:"Librarian",v:`${S.books.reduce((a,b)=>a+b.out,0)} books borrowed · ${cn("od")} overdue`,go:"library"},
+ {n:"Maintenance report",icon:"🔧",src:"Maintenance worker",v:`${cn("repair")} repair requests (${R("repair").filter(r=>r.st=="Pending").length} pending)`,go:"maint"},
+ {n:"Health report",icon:"🏥",src:"Health worker",v:`${S.clinic.length} clinic visits`,go:"health"}].filter(x=>can(NAV.find(n=>n[0]==x.go),"principal"))}
+function shareText(){return "SCHOOL SAVER AI — "+L().n+" — "+today()+"\n"+depts().map(d=>"• "+d.n+": "+d.v).join("\n")}
+function saveSched(e){e.preventDefault();const d=new FormData(e.target);S.sched={f:d.get("f"),tm:d.get("tm"),ch:d.getAll("ch")};log("Report schedule: "+S.sched.f);toast("Schedule saved");go()}
+/* Submit without relying on native form submission (some app viewers block it) */
+function sub(f){if(f.reportValidity&&!f.reportValidity())return;f.dispatchEvent(new Event("submit",{cancelable:true,bubbles:true}))}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("form button");if(!b||b.type=="button")return;e.preventDefault();sub(b.form)});
+document.addEventListener("keydown",e=>{if(e.key=="Enter"&&e.target.tagName=="INPUT"&&e.target.form&&!e.target.form.querySelector("textarea")){e.preventDefault();sub(e.target.form)}});
+/* ============ START ============ */
+{const o=Object.keys(ROLES).map(k=>`<option value="${k}">${ROLES[k]}</option>`).join("");$("loginRole").innerHTML=o}
+let loaded=false;try{const x=JSON.parse(localStorage.getItem("ssai_app")||"null");if(x&&x.v==2&&x.students){Object.assign(S,x);loaded=true}}catch(e){}
+if(!loaded)seed();
+if(S.school&&LV[S.school.lvl])LV[S.school.lvl].n=S.school.n;
+let dip=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("inst").classList.remove("hidden")});
+window.addEventListener("appinstalled",()=>$("inst").classList.add("hidden"));
+function installApp(){if(!dip)return;dip.prompt();dip.userChoice.finally(()=>{dip=null;$("inst").classList.add("hidden")})}
+if(loaded&&S.in){show("app");try{go()}catch(x){show("auth")}}else setTimeout(()=>{show("auth");if(/invite=/.test(location.hash||""))$("invNote").classList.remove("hidden")},700);
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+<script id="ssai-cloud">
+/* ===== SCHOOL SAVER AI — cloud bridge (added; nothing above this block was changed) =====
+   Talks to /api/* (Vercel -> Neon). If the API is not reachable the app keeps working in demo mode. */
+(()=>{
+const CK="ssai_cloud",C=(()=>{try{return JSON.parse(localStorage.getItem(CK)||"{}")}catch(e){return{}}})();C.q=C.q||[];C.marks={};
+const sv=()=>{try{localStorage.setItem(CK,JSON.stringify({tok:C.tok,sid:C.sid,q:C.q}))}catch(e){}};
+const E=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const RM={games_teacher:"games",health_worker:"health",boarding_supervisor:"boarding",lab_technician:"lab"},rk=c=>{c=RM[c]||c;return ROLES[c]?c:"teacher"};
+const day=()=>new Date().toISOString().slice(0,10),off=()=>S.offline||!navigator.onLine;
+async function api(path,body){const o={method:body?"POST":"GET",headers:{"content-type":"application/json"}};if(C.tok)o.headers.authorization="Bearer "+C.tok;if(body)o.body=JSON.stringify(body);
+ let r;try{r=await fetch(path,o)}catch(e){const x=new Error("offline");x.net=1;throw x}
+ const j=await r.json().catch(()=>({}));if(!r.ok){const x=new Error(j.error||"Request failed");x.status=r.status;if(!j.error)x.net=1;if(r.status==401&&C.tok){C.tok=null;sv()}throw x}return j}
+window.cloud=api;
+function adopt(r){C.tok=r.token||C.tok;const m=(r.memberships||[])[0];if(m){C.sid=m.school_id;S.role=rk(m.role);S.user=m.full_name||S.user}sv()}
+/* sign in / register / activate */
+const L0=window.doLogin;window.doLogin=function(e){e.preventDefault();const f=Object.fromEntries(new FormData(e.target)),ev={target:e.target,preventDefault(){}};
+ api("/api/auth/login",{identifier:f.id,password:f.pw}).then(r=>{adopt(r);const m=(r.memberships||[])[0];L0(ev);if(m){S.role=rk(m.role);S.user=m.full_name||S.user}go()},x=>{if(x.net){L0(ev);toast("Cloud not reachable — demo mode")}else toast(x.message)})};
+const R0=window.doRegister;window.doRegister=function(e){const f=Object.fromEntries(new FormData(e.target));R0(e);
+ api("/api/auth/register-school",{name:f.n,type:f.t,reg:f.rn,county:f.co,head:f.hd,phone:f.ph,email:f.em,password:f.pw}).then(r=>{adopt(r);S.role="principal";toast("School saved to the cloud")},x=>toast(x.net?"Saved on this device only (cloud not reachable)":x.message))};
+const A0=window.doActivate;window.doActivate=function(e){if(!C.inv)return A0(e);const f=fd(e);if(f.pw.length<6||f.pw!=f.pw2){toast("Passwords must match (6+ characters)");return}
+ api("/api/auth/accept-invite",{token:C.inv,contact:f.c,password:f.pw}).then(r=>{C.inv=null;adopt(r);history.replaceState(0,"",location.pathname);S.in=true;show("app");go();toast("Account activated — your dashboard is ready")},x=>toast(x.message))};
+setTimeout(()=>{const m=(location.hash||"").match(/invite=([\w-]+)/);if(!m||(S.inv||[]).some(v=>v.code==m[1]))return;
+ api("/api/auth/invite?token="+m[1]).then(i=>{C.inv=m[1];show("auth");authTab("a");$("actT").textContent="Welcome, "+i.full_name;$("actP").textContent="Role: "+i.role+" at "+i.school+". Enter the phone or email this invitation was sent to and create your password."},()=>{})},900);
+/* secure single-use staff links (generated and checked on the server) */
+const M0=window.mkLink;window.mkLink=function(i){M0(i);const v=S.inv[i];if(!C.tok||!C.sid)return;
+ (async()=>{try{if(!v.cid)v.cid=(await api("/api/invitations",{school_id:C.sid,full_name:v.n,contact:v.c,role:v.rk||v.key,department:v.d,class_name:v.cl})).id;
+ const r=await api("/api/invitations/"+v.cid+"/link",{});v.link=r.link;v.code=null;v.exp=new Date(r.expires_at).getTime();save();go()}catch(x){toast("Link works on this device only: "+x.message)}})()};
+const V0=window.revInv;window.revInv=function(i){const v=S.inv[i];if(v&&v.cid&&C.tok)api("/api/invitations/"+v.cid+"/revoke",{}).catch(()=>{});V0(i)};
+/* offline queue */
+async function flush(){if(!C.q.length||!C.tok||off())return;try{const r=await api("/api/sync",{school_id:C.sid,mutations:C.q});const bad=r.results.filter(x=>x.status=="failed");C.q=[];sv();toast(bad.length?bad.length+" offline record(s) could not be saved":"Offline records synchronised");go()}catch(x){}}
+addEventListener("online",flush);setTimeout(flush,1500);
+const queue=(op,payload)=>{C.q.push({client_id:uid(),op,payload});sv();toast("Saved offline — will sync when you are online");go()};
+/* views */
+const gate=()=>C.tok&&C.sid?"":card("Cloud account needed","<p class='note'>Log in with your school account (or open your staff invitation link) to use this module.</p>");
+const page=(eb,h,p,fn)=>{const g=gate();if(g)return head(eb,h,p)+g;setTimeout(async()=>{const el=document.getElementById("cx");if(!el)return;try{el.innerHTML=await fn()}catch(x){el.innerHTML=card("Could not load","<p class='note'>"+E(x.message)+"</p>")}},0);return head(eb,h,p)+'<div id="cx"><p class="note">Loading…</p></div>'};
+const hm=t=>String(t||"").slice(0,5),form=id=>Object.fromEntries(new FormData(document.getElementById(id)));
+const X=window.CLX={rows:{},
+ conf(id,st){let reason=null;if(st=="problem"){reason=prompt("What is the problem? (absent, delayed, unable to attend)");if(reason===null)return}
+  const b={date:day(),status:st,reason};if(off())return queue("lesson.confirm",{timetable_id:id,date:b.date,status:st,reason});
+  api("/api/lessons/"+id+"/confirm",b).then(()=>{toast("Recorded");go()},x=>x.net?queue("lesson.confirm",{timetable_id:id,date:b.date,status:st,reason}):toast(x.message))},
+ sub(id){const v=document.getElementById("sb"+id).value;if(!v)return toast("Choose a teacher");api("/api/lessons/"+id+"/substitute",{substitute_employee_id:v,date:day()}).then(()=>{toast("Replacement assigned and notified");go()},x=>toast(x.message))},
+ slot(){const f=form("slotF");api("/api/timetable",{school_id:C.sid,...f,weekday:+f.weekday}).then(()=>{toast("Lesson added");go()},x=>toast(x.message))},
+ stu(){const f=form("stuF");api("/api/students",{school_id:C.sid,admission_number:f.adm,full_name:f.name,class_name:f.cls,guardian:{name:f.gn,phone:f.gp,relationship:f.rel}}).then(()=>{toast("Registered");go()},x=>toast(x.message))},
+ mk(id,v){C.marks[id]=v;X.cnt()},
+ cnt(){const s=[...document.querySelectorAll(".cm")],u=s.filter(x=>!x.value).length,el=document.getElementById("cu");if(el)el.textContent=u+" unverified (not marked absent)"},
+ appr(){const cid=document.getElementById("rc").value;if(!cid)return toast("Choose a class");const marks=[...document.querySelectorAll(".cm")].filter(x=>x.dataset.c==cid&&x.value).map(x=>({student_id:x.dataset.s,status:x.value})),b={school_id:C.sid,class_id:cid,date:day(),marks};
+  if(off())return queue("register.approve",{class_id:cid,date:b.date,marks});api("/api/registers/approve",b).then(r=>{toast("Register approved: "+r.present+" present, "+r.absent+" absent, "+r.unverified+" unverified");go()},x=>toast(x.message))},
+ pull(){api("/api/register/pull",{school_id:C.sid}).then(r=>{toast(r.added+" students added");go()},x=>toast(x.message))},
+ col(){const l=prompt("New column name");if(l)api("/api/register/columns",{school_id:C.sid,label:l}).then(()=>go(),x=>toast(x.message))},
+ row(){api("/api/register/rows",{school_id:C.sid,data:{}}).then(()=>go(),x=>toast(x.message))},
+ edit(id,k){const r=X.rows[id];if(!r)return;const v=prompt(k,r.data[k]||"");if(v===null)return;api("/api/register/rows/"+id+"/change",{data:{...r.data,[k]:v}}).then(()=>{toast("Change sent for approval");go()},x=>toast(x.message))},
+ dec(id,ap){api("/api/register/changes/"+id+"/decide",{approve:ap}).then(()=>go(),x=>toast(x.message))},
+ find(q){document.querySelectorAll("#srt tr+tr").forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(q.toLowerCase()))},
+ csv(){const t=[...document.querySelectorAll("#srt tr")].map(r=>[...r.children].map(c=>'"'+c.textContent.replace(/"/g,'""')+'"').join(",")).join("\n"),a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(t);a.download="register.csv";a.click()}};
+const WD=["","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+V.lessons=()=>page("TEACHER","My Lessons","Confirm each lesson before you go in. Not tapping is never treated as absence.",async()=>{
+ const L=await api("/api/lessons?school_id="+C.sid+"&date="+day()),td=new Date().getDay()||7,t=L.filter(l=>l.weekday==td);
+ return card("Today",t.map(l=>`<div style="padding:8px 0;border-bottom:1px solid #0f3a1d"><b>${E(l.subject_name)}</b> · ${E(l.class_name)} · ${E(l.room||"")}<br><span class="note">${hm(l.starts_at)}–${hm(l.ends_at)}${l.covering?" · you are covering":""}</span><br>${l.confirmation?`<span class="tag ${l.confirmation=="approved"?"":"a"}">${l.confirmation=="approved"?"Approved":"Problem reported"}</span>`:`<button class="p" onclick="CLX.conf('${l.id}','approved')">Approve — I am going</button> <button class="d" onclick="CLX.conf('${l.id}','problem')">Report a problem</button>`}</div>`).join("")||"<p class='note'>No lessons today.</p>")+
+ card("My timetable",tbl(["Day","Time","Subject","Class","Room"],L.map(l=>[WD[l.weekday],hm(l.starts_at)+"–"+hm(l.ends_at),E(l.subject_name),E(l.class_name),E(l.room||"")])))});
+V.lessonmon=()=>page("PRINCIPAL","Lesson Confirmations","Who confirmed, who reported a problem, and who is still outstanding. Assign replacements here.",async()=>{
+ const [d,st]=await Promise.all([api("/api/lessons/confirmations?school_id="+C.sid+"&date="+day()),api("/api/staff?school_id="+C.sid)]),opt=st.map(s=>`<option value="${s.id}">${E(s.full_name)}</option>`).join("");
+ return card("Confirmed today",tbl(["Teacher","Lesson","Status","Note"],d.confirmed.map(c=>[E(c.full_name),E(c.subject_name)+" "+E(c.class_name),c.status=="approved"?"✅ Approved":"⚠️ Problem",E(c.reason||"")])))+
+ card("Outstanding (follow up — not marked absent)",d.outstanding.map(o=>`<div class="grid g3" style="align-items:center;margin-bottom:8px"><span>${E(o.subject_name)} ${E(o.class_name)}<br><span class="note">${E(o.full_name||"")} · ${hm(o.starts_at)}</span></span><select id="sb${o.id}"><option value="">Replacement teacher…</option>${opt}</select><button class="b" onclick="CLX.sub('${o.id}')">Assign</button></div>`).join("")||"<p class='note'>Nothing outstanding.</p>")+
+ card("Add a lesson to the timetable",`<form id="slotF" onsubmit="event.preventDefault();CLX.slot()"><select name="employee_id" required><option value="">Teacher…</option>${opt}</select><select name="weekday">${[1,2,3,4,5].map(n=>`<option value="${n}">${WD[n]}</option>`).join("")}</select><input name="starts_at" type="time" required><input name="ends_at" type="time" required><input name="subject_name" placeholder="Subject" required><input name="class_name" placeholder="Class e.g. Form 2V" required><input name="room" placeholder="Room"><button class="p full">Add lesson</button></form>`)});
+V.classreg=()=>page("CLASS TEACHER","Class Register","Mark students, review the unverified list, then approve. The principal sees the approved register.",async()=>{
+ const [s,g]=await Promise.all([api("/api/students?school_id="+C.sid),api("/api/registers?school_id="+C.sid+"&date="+day())]),cl=[...new Map(s.filter(x=>x.class_id).map(x=>[x.class_id,x.class_name]))];
+ return card("Approved registers today",tbl(["Class","Registered","Present","Absent","Unverified"],g.map(r=>[E(r.class_name),r.registered,r.present,r.absent,r.unverified])))+
+ card("Today's register",`<select id="rc" onchange="document.querySelectorAll('.cr').forEach(r=>r.hidden=r.dataset.c!=this.value)"><option value="">Choose class…</option>${cl.map(c=>`<option value="${c[0]}">${E(c[1])}</option>`).join("")}</select> <span id="cu" class="note"></span>`+
+  `<div class="tw"><table>${s.filter(x=>x.class_id).map(x=>`<tr class="cr" data-c="${x.class_id}" hidden><td>${E(x.admission_number)}</td><td>${E(x.full_name)}</td><td><select class="cm" data-s="${x.id}" data-c="${x.class_id}" onchange="CLX.mk('${x.id}',this.value)"><option value="">Unverified</option><option value="present">Present</option><option value="late">Late</option><option value="absent">Absent</option><option value="excused">Excused</option></select></td></tr>`).join("")}</table></div><button class="p full" onclick="CLX.appr()">Approve register</button>`)+
+ card("Register a student",`<form id="stuF" onsubmit="event.preventDefault();CLX.stu()"><input name="adm" placeholder="Admission number" required><input name="name" placeholder="Full name" required><input name="cls" placeholder="Class (must exist)" required><input name="gn" placeholder="Guardian name"><input name="gp" placeholder="Guardian phone"><input name="rel" placeholder="Relationship"><button class="p full">Register student</button></form>`)});
+V.smartreg=()=>page("BURSAR · PRINCIPAL","Smart Institution Register","One table the school can grow. Edits go to the principal for approval and the old value is kept.",async()=>{
+ const d=await api("/api/register?school_id="+C.sid),keys=[...d.columns.map(c=>[c.key,c.label])];d.rows.forEach(r=>Object.keys(r.data).forEach(k=>{if(!keys.some(x=>x[0]==k))keys.push([k,k.replace(/_/g," ")])}));X.rows={};d.rows.forEach(r=>X.rows[r.id]=r);
+ return card("",`<button class="p" onclick="CLX.pull()">Pull students from class registers</button> <button class="b" onclick="CLX.row()">+ Row</button> <button class="b" onclick="CLX.col()">+ Column</button> <button class="b" onclick="CLX.csv()">Export CSV</button> <input placeholder="Search" oninput="CLX.find(this.value)">`)+
+ card("",`<div class="tw"><table id="srt"><tr>${keys.map(k=>`<th>${E(k[1])}</th>`).join("")}</tr>${d.rows.map(r=>`<tr>${keys.map(k=>`<td onclick="CLX.edit('${r.id}','${E(k[0])}')">${E(r.data[k[0]]||"")}</td>`).join("")}</tr>`).join("")}</table></div>`)+
+ (d.pending.length?card("Changes waiting for approval",d.pending.map(c=>`<p>${E(JSON.stringify(c.new_data))}<br><span class="note">was ${E(JSON.stringify(c.old_data))}</span><br><button class="p" onclick="CLX.dec('${c.id}',true)">Approve</button> <button class="d" onclick="CLX.dec('${c.id}',false)">Reject</button></p>`).join("")):"")});
+const at=NAV.findIndex(n=>n[0]=="attendance")+1||NAV.length;
+NAV.splice(at,0,["lessons","🗓️","My Lessons","Masomo Yangu","T"],["lessonmon","🧑‍🏫","Lesson Confirmations","Uthibitisho wa Masomo","PD"],["classreg","✅","Class Register Approval","Idhini ya Daftari","PT"],["smartreg","🗂️","Smart Institution Register","Daftari Janja","PBD"]);
+/* logo */
+const st=document.createElement("style");st.textContent=".lgo{background:none!important;overflow:hidden}.lgo img{width:100%;height:100%;object-fit:cover;border-radius:inherit}";document.head.appendChild(st);
+document.querySelectorAll(".lgo").forEach(e=>{e.innerHTML='<img src="/icons/app-192.png" alt="SCHOOL SAVER AI">'});
+})();
+</script>
+</body>
+</html>
