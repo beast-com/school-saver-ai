@@ -550,7 +550,31 @@ let dip=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault(
 window.addEventListener("appinstalled",()=>$("inst").classList.add("hidden"));
 function installApp(){if(!dip)return;dip.prompt();dip.userChoice.finally(()=>{dip=null;$("inst").classList.add("hidden")})}
 if(loaded&&S.in){show("app");try{go()}catch(x){show("auth")}}else setTimeout(()=>{show("auth");if(/invite=/.test(location.hash||""))$("invNote").classList.remove("hidden")},700);
-if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+/* CLOUD BRIDGE: Send new school registrations to the Neon database */
+const originalDoRegister = window.doRegister;
+window.doRegister = async function(e) {
+  e.preventDefault();
+  const f = Object.fromEntries(new FormData(e.target));
+  try {
+    // Send data to Vercel API
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        name: f.n, type: f.t, rn: f.rn, co: f.co, hd: f.hd, ph: f.ph, em: f.em, pw: f.pw
+      })
+    });
+    if (!res.ok) throw new Error("API Error");
+    // If successful, call the original function to handle the UI
+    originalDoRegister(e); 
+    toast("School saved to cloud successfully!");
+  } catch (err) {
+    console.error(err);
+    toast("Failed to connect to cloud. Using local demo mode.");
+    originalDoRegister(e); // Fallback to local storage if cloud fails
+  }
+};
+ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 <script id="ssai-cloud">
 /* ===== SCHOOL SAVER AI — cloud bridge (added; nothing above this block was changed) =====
